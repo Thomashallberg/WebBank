@@ -27,7 +27,12 @@ def customerimagepage(id):
 @app.route("/customer/<id>")
 def customerpage(id):
     customer = Customer.query.filter_by(Id = id).first()
-    return render_template("customer.html", customer=customer, activePage="customersPage" )
+    Saldo = 0
+    for accounts in customer.Accounts:
+        Saldo = Saldo + accounts.Balance
+        
+        
+    return render_template("customer.html", customer=customer, activePage="customersPage", Saldo=Saldo )
 
 
 
@@ -39,7 +44,7 @@ def customerspage():
     searchWord = request.args.get('q','')
 
     listOfCustomers = Customer.query
-#kundnummer, personnummer, namn, adress och city
+
     listOfCustomers = listOfCustomers.filter(
         Customer.GivenName.like('%' + searchWord + '%') | 
         Customer.City.like('%' + searchWord + '%') |
