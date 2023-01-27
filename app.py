@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
-from model import db, seedData, Customer
+from model import db, seedData, Customer, Account
 
 # active page
 # Sorting
@@ -34,7 +34,10 @@ def customerpage(id):
         
     return render_template("customer.html", customer=customer, activePage="customersPage", Saldo=Saldo )
 
-
+@app.route("/customer/account/<id>")
+def Transaktioner(id):
+    account = Account.query.filter_by(Id = id).first()
+    return render_template("Transaktioner.html", account=account)
 
 @app.route("/customers")
 def customerspage():

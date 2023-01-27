@@ -23,10 +23,12 @@ Customer: {{ customer.GivenName }}
 <p>
     <img src="https://img.systementor.se/{{ customer.Id }}/500/400" />
 </p>
-Balance:
+Balance:<br><br>
 {%  for a in customer.Accounts  %}
 <h2>
-    {{ a.AccountType }}: {{ a.Balance}}
+    <a href="/customer/account/{{ a.Id }}" class="btn">
+    {{ a.AccountType }}
+    </a>: {{ a.Balance}}<br><br>
 </h2>
 {%  endfor  %}
 <h1> Total: {{ Saldo }}
