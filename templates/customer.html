@@ -20,10 +20,16 @@ Customer: {{ customer.GivenName }}
 <p>
     Telefon: {{ customer.TelephoneCountryCode }} -  {{ customer.Telephone }}
 </p>
-
 <p>
     <img src="https://img.systementor.se/{{ customer.Id }}/500/400" />
 </p>
+Balance:
+{%  for a in customer.Accounts  %}
+<h2>
+    {{ a.AccountType }}: {{ a.Balance}}
+</h2>
+{%  endfor  %}
+<h1> Total: {{ Saldo }}
 
 {% endblock %}
 
