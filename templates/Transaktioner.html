@@ -1,0 +1,16 @@
+{% extends "basetemplate.html" %}
+
+{% block title %}
+Kontonamn
+{% endblock %}
+
+
+{% block content %}
+<h1>
+    Account name: 
+{{ account.AccountType }}
+</h1>
+<h2>
+cc-number: {{ account.Id }} <br>Balance: {{account.Balance}}
+</h2>
+{% endblock %}
