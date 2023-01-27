@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
-
 from model import db, seedData, Customer
 
 # active page
@@ -10,7 +9,7 @@ from model import db, seedData, Customer
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:my-secret-pw@localhost/Hemsida'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:my-secret-pw@localhost/Bank'
 db.app = app
 db.init_app(app)
 migrate = Migrate(app,db)
@@ -40,16 +39,20 @@ def customerspage():
     searchWord = request.args.get('q','')
 
     listOfCustomers = Customer.query
-
+#kundnummer, personnummer, namn, adress och city
     listOfCustomers = listOfCustomers.filter(
-        Customer.Name.like('%' + searchWord + '%') | 
-        Customer.City.like('%' + searchWord + '%' ))
+        Customer.GivenName.like('%' + searchWord + '%') | 
+        Customer.City.like('%' + searchWord + '%') |
+        Customer.NationalId.like('%' + searchWord + '%') |
+        Customer.Streetaddress.like('%' + searchWord + '%') |
+        Customer.City.like('%' + searchWord + '%') |
+        Customer.Id.like('%' + searchWord + '%') )
 
     if sortColumn == "namn":
         if sortOrder == "asc":
-            listOfCustomers = listOfCustomers.order_by(Customer.Name.asc())
+            listOfCustomers = listOfCustomers.order_by(Customer.GivenName.asc())
         else:
-            listOfCustomers = listOfCustomers.order_by(Customer.Name.desc())
+            listOfCustomers = listOfCustomers.order_by(Customer.GivenName.desc())
     elif sortColumn == "city":
         if sortOrder == "asc":
             listOfCustomers = listOfCustomers.order_by(Customer.City.asc())
@@ -71,9 +74,11 @@ def customerspage():
 if __name__  == "__main__":
     with app.app_context():
         #upgrade()
-    
-        seedData(db)
+
+        #seedData(db)
+
         app.run()
+
         # while True:
         #     print("1. Create")
         #     print("2. List")        

@@ -1,16 +1,22 @@
 {% extends "basetemplate.html" %}
 
 {% block title %}
-Customer: {{ customer.Name }}
+Customer: {{ customer.GivenName }}
 {% endblock %}
 
 
 {% block content %}
-<h1>{{ customer.Name }}</h1>
+<h1>{{ customer.GivenName }}</h1>
+<h1>{{ customer.Surname }}</h1>
+<p>
+    id: {{ customer.Id }}
+</p>
 <p>
     City: {{ customer.City }}
 </p>
-
+<p>
+    Streetaddress: {{ customer.Streetaddress }}
+</p>
 <p>
     Telefon: {{ customer.TelephoneCountryCode }} -  {{ customer.Telephone }}
 </p>
