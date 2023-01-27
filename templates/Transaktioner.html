@@ -13,4 +13,27 @@ Kontonamn
 <h2>
 cc-number: {{ account.Id }} <br>Balance: {{account.Balance}}
 </h2>
+<table class="table">
+<thead>
+    <th>Id</th>
+    <th>Date</th>
+    <th>Operation</th>
+    <th>Amount</th>
+    <th>Type</th>
+    <th>NewBalance</th>
+</thead>
+<tbody>
+    {%  for t in transaktioner   %}
+    <tr>
+        <td>{{ t.Id }}</td> 
+        <td>{{ t.Date }}</td>  
+        <td>{{ t.Operation }}</td>           
+        <td>{{ t.Amount }}</td>
+        <td>{{ t.Type }}</td> 
+        <td>{{ t.NewBalance}}</td>           
+    </tr>
+    {%  endfor  %}
+    </tbody>
+</table>
+
 {% endblock %}

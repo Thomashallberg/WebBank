@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
-from model import db, seedData, Customer, Account
+from model import db, seedData, Customer, Account, Transaction
 
 # active page
 # Sorting
@@ -37,7 +37,9 @@ def customerpage(id):
 @app.route("/customer/account/<id>")
 def Transaktioner(id):
     account = Account.query.filter_by(Id = id).first()
-    return render_template("Transaktioner.html", account=account)
+    transaktioner = Transaction.query.filter_by(AccountId=id)
+    transaktioner = transaktioner.order_by(Transaction.Date.desc())
+    return render_template("Transaktioner.html", account=account, transaktioner=transaktioner)
 
 @app.route("/customers")
 def customerspage():
