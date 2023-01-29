@@ -1,0 +1,44 @@
+{% extends "basetemplate.html" %}
+
+{% block title %}
+New customer
+{% endblock %}
+
+{% block content %}
+
+    {% for field, errors in formen.errors.items() %}
+    {{ formen[field].label }}: {{ ', '.join(errors) }}
+    </br>
+    {% endfor %}
+
+   <form method="post">
+
+    {{ formen.csrf_token }}
+
+    {{ formen.GivenName(placeholder="Enter Given name") }}
+
+    {{ formen.Surname(placeholder="Enter Surname") }}
+
+    {{ formen.Streetaddress(placeholder="Enter Streetaddress") }}
+
+    {{ formen.City(placeholder="Enter city") }}
+
+    {{ formen.Zipcode(placeholder="Enter Zipcode") }}
+
+    {{ formen.Country(placeholder="Enter Country") }}
+
+    {{ formen.CountryCode(placeholder="Enter Countrycode") }}
+
+    {{ formen.Birthday(placeholder="Enter birthday") }}
+
+    {{ formen.NationalId(placeholder="Enter National ID") }}
+
+    {{ formen.TelephoneCountryCode(placeholder="Enter Country code") }}
+
+    {{ formen.Telephone(placeholder="Enter phonenumber") }}
+    
+    {{ formen.EmailAddress(placeholder="Enter E-mail address") }}
+
+    <input type="submit" value="Spara">
+   </form>
+{% endblock %}    
