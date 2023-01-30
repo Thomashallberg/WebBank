@@ -40,7 +40,8 @@ Visar sidan {{ page }} av totalt {{ pages }}
     <tbody>
         {%  for p in listOfCustomers  %}
         <tr>
-            <td>{{ p.GivenName }}</td>            
+            <td>{{ p.GivenName }}</td>
+            <td>{{ p.Surname }}</td>            
             <td>{{ p.City }}</td>        
             <td>
                 <a href="/customer/{{ p.Id }}" class="btn">

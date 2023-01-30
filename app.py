@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
 from model import db, seedData, Customer, Account, Transaction
 from forms import NewCustomerForm
 from datetime import datetime
+from flask_security import roles_accepted, auth_required, logout_user
 import os
 
 # active page
@@ -13,7 +14,10 @@ import os
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:my-secret-pw@localhost/Bank'
-app.config['SECRET_KEY'] = os.urandom(32)
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", 'pf9Wkove4IKEAXvy-cQkeDPhv9Cb3Ag-wyJILbq_dFw')
+app.config['SECURITY_PASSWORD_SALT'] = os.environ.get("SECURITY_PASSWORD_SALT", '146585145368132386173505678016728509634')
+app.config["REMEMBER_COOKIE_SAMESITE"] = "strict"
+app.config["SESSION_COOKIE_SAMESITE"] = "strict"
 db.app = app
 db.init_app(app)
 migrate = Migrate(app,db)
@@ -21,6 +25,11 @@ migrate = Migrate(app,db)
 @app.route("/")
 def startpage():
 	    return render_template("index.html", activePage="startPage" )
+ 
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect("/")
 
 @app.route("/customerimage/<id>")
 def customerimagepage(id):
@@ -29,14 +38,20 @@ def customerimagepage(id):
 
 
 @app.route("/customer/<id>")
+@auth_required()
+@roles_accepted("Admin","Staff")
 def customerpage(id):
     customer = Customer.query.filter_by(Id = id).first()
     Saldo = 0
     for accounts in customer.Accounts:
         Saldo = Saldo + accounts.Balance
-        
-        
     return render_template("customer.html", customer=customer, activePage="customersPage", Saldo=Saldo )
+
+@app.route("/adminblabla")
+@auth_required()
+@roles_accepted("Admin")
+def adminblblapage():
+    return render_template("adminblabla.html", activePage="secretPage" )
 
 @app.route("/customer/account/<id>")
 def Transaktioner(id):
@@ -46,6 +61,8 @@ def Transaktioner(id):
     return render_template("Transaktioner.html", account=account, transaktioner=transaktioner)
 
 @app.route("/customers")
+@auth_required()
+@roles_accepted("Admin","Staff")
 def customerspage():
     sortColumn = request.args.get('sortColumn', 'namn')
     sortOrder = request.args.get('sortOrder', 'asc')
@@ -119,8 +136,8 @@ if __name__  == "__main__":
         #upgrade()
 
         #seedData(db)
-
-        app.run()
+        seedData(app, db)
+        app.run(debug=True)
 
         # while True:
         #     print("1. Create")
