@@ -2,6 +2,9 @@ from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
 from model import db, seedData, Customer, Account, Transaction
+from forms import NewCustomerForm
+from datetime import datetime
+import os
 
 # active page
 # Sorting
@@ -10,6 +13,7 @@ from model import db, seedData, Customer, Account, Transaction
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:my-secret-pw@localhost/Bank'
+app.config['SECRET_KEY'] = os.urandom(32)
 db.app = app
 db.init_app(app)
 migrate = Migrate(app,db)
@@ -80,6 +84,35 @@ def customerspage():
                     has_prev = paginationObject.has_prev,
                     pages=paginationObject.pages,
                     q = searchWord)
+    
+@app.route("/newcustomer", methods=['GET', 'POST'])
+def newcustomer():
+    now = datetime.now()
+    form = NewCustomerForm()
+    if form.validate_on_submit():
+        #spara i databas
+        customer = Customer()
+        customer.GivenName = form.GivenName.data
+        customer.Surname = form.Surname.data
+        customer.Streetaddress = form.Streetaddress.data
+        customer.City = form.City.data
+        customer.Zipcode = form.Zipcode.data
+        customer.Country = form.Country.data
+        customer.CountryCode = form.CountryCode.data
+        customer.Birthday = form.Birthday.data
+        customer.NationalId = form.NationalId.data
+        customer.TelephoneCountryCode = form.TelephoneCountryCode.data
+        customer.Telephone = form.Telephone.data
+        customer.EmailAddress = form.EmailAddress.data
+        newaccount = Account()
+        newaccount.AccountType = "Savings"
+        newaccount.Created = now
+        newaccount.Balance = 0
+        customer.Accounts = [newaccount]
+        
+        db.session.add(customer)
+        db.session.commit()
+    return render_template("newcustomer.html", formen=form )
 
 if __name__  == "__main__":
     with app.app_context():
