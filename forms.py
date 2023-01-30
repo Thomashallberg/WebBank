@@ -14,10 +14,10 @@ class NewCustomerForm(FlaskForm):
     City = StringField('City', validators=[validators.DataRequired()])
     Zipcode = StringField('Zipcode', validators=[validators.DataRequired()])
     Country = StringField('Country', validators=[validators.DataRequired()])
-    CountryCode = SelectField('countryCode',choices=[('SE','+46'),('NO','+41'),('FI','+42')])
+    CountryCode = SelectField('countryCode',choices=[('SE','SWE'),('NO','NOR'),('FI','FIN')])
     Birthday = DateField('Birthday', validators=[validators.DataRequired()])
     NationalId = StringField('NationalId', validators=[validators.DataRequired()])
-    TelephoneCountryCode = StringField('Phone country code', validators=[validators.DataRequired()])
+    TelephoneCountryCode = IntegerField('Phone country code', validators=[validators.DataRequired()])
     Telephone = StringField('Phone', validators=[validators.DataRequired()])
     EmailAddress = StringField('E-Mail', validators=[validators.DataRequired()])
     

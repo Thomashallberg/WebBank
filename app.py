@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
 from model import db, seedData, Customer, Account, Transaction
 from forms import NewCustomerForm
+from datetime import datetime
 import os
 
 # active page
@@ -86,22 +87,29 @@ def customerspage():
     
 @app.route("/newcustomer", methods=['GET', 'POST'])
 def newcustomer():
+    now = datetime.now()
     form = NewCustomerForm()
     if form.validate_on_submit():
         #spara i databas
         customer = Customer()
         customer.GivenName = form.GivenName.data
         customer.Surname = form.Surname.data
-        customer.Streetaddress = form.Steetaddress.data
+        customer.Streetaddress = form.Streetaddress.data
         customer.City = form.City.data
         customer.Zipcode = form.Zipcode.data
         customer.Country = form.Country.data
-        customer.CountryCode = form.countryCode.data
+        customer.CountryCode = form.CountryCode.data
         customer.Birthday = form.Birthday.data
         customer.NationalId = form.NationalId.data
         customer.TelephoneCountryCode = form.TelephoneCountryCode.data
         customer.Telephone = form.Telephone.data
         customer.EmailAddress = form.EmailAddress.data
+        newaccount = Account()
+        newaccount.AccountType = "Savings"
+        newaccount.Created = now
+        newaccount.Balance = 0
+        customer.Accounts = [newaccount]
+        
         db.session.add(customer)
         db.session.commit()
     return render_template("newcustomer.html", formen=form )
