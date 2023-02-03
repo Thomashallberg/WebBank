@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
 from model import db, seedData, Customer, Account, Transaction
-from forms import NewCustomerForm
+from forms import NewCustomerForm, DepositForm
 from datetime import datetime
 from flask_security import roles_accepted, auth_required, logout_user
 import os
@@ -10,7 +10,8 @@ import os
 # active page
 # Sorting
 # paging
-
+#pip install flask-security-too
+#pip install flask_security
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:my-secret-pw@localhost/Bank'
@@ -130,6 +131,63 @@ def newcustomer():
         db.session.add(customer)
         db.session.commit()
     return render_template("newcustomer.html", formen=form )
+
+@app.route("/deposit/<id>", methods=['GET', 'POST'])
+def deposit(id):
+    customer = Customer.query.filter_by(Id=id).first()
+    account = Account.query.filter_by(Id = id).first()
+    form = DepositForm()
+    date = datetime()
+    
+    if form.validate_on_submit():
+        account.Balance == account.Balance + form.Amount.data
+        newtransaction = Transaction()
+        newtransaction.Type = form.Type.data
+        newtransaction.Operation = form.Operation.data
+        newtransaction.Date = date
+        newtransaction.Amount = form.Amount.data
+        newtransaction.NewBalance = Account.Balance ==  Account.Balance + form.Amount.data
+        account.Transactions = [newtransaction]
+        db.session.add(newtransaction)
+        db.session.commit()
+        
+    return render_template("deposit.html", account=account, customer=customer, form=form)
+
+@app.route("/editcustomer/<id>", methods=['GET', 'POST'])
+def editcustomer(id):
+    customer = Customer.query.filter_by(Id=id).first()
+    form = NewCustomerForm()
+
+    if form.validate_on_submit():
+        customer.GivenName = form.GivenName.data
+        customer.Surname = form.Surname.data
+        customer.Streetaddress = form.Streetaddress.data
+        customer.City = form.City.data
+        customer.Zipcode = form.Zipcode.data
+        customer.Country = form.Country.data
+        customer.CountryCode = form.CountryCode.data
+        customer.Birthday = form.Birthday.data
+        customer.NationalId = form.NationalId.data
+        customer.TelephoneCountryCode = form.TelephoneCountryCode.data
+        customer.Telephone = form.Telephone.data
+        customer.EmailAddress = form.EmailAddress.data
+        db.session.commit()
+        return redirect("/customers" )
+    if request.method == 'GET':
+        form.GivenName.data = customer.GivenName
+        form.Surname.data = customer.Surname
+        form.Streetaddress.data = customer.Streetaddress
+        form.City.data = customer.City
+        form.Zipcode.data = customer.Zipcode
+        form.Country.data = customer.Country
+        form.CountryCode.data = customer.CountryCode
+        form.Birthday.data = customer.Birthday
+        form.NationalId.data = customer.NationalId
+        form.TelephoneCountryCode.data = customer.TelephoneCountryCode
+        form.Telephone.data = customer.Telephone
+        form.EmailAddress.data = customer.EmailAddress
+    return render_template("editcustomer.html", formen=form )
+
 
 if __name__  == "__main__":
     with app.app_context():

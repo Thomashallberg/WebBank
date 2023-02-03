@@ -15,7 +15,8 @@
     <div class="grid-container">
         <header class="header">
             <div class="header__avatar">
-                
+                {{ current_user.email }}  
+
 
             </div>
           </header>
@@ -47,8 +48,6 @@
                         <i class="bx bx-list-ul"></i>
                         Whatever link</a>
                 </li>
-
-                {{ current_user.email }}  
 
                 {% if current_user.is_authenticated %}
                 <li class="sidenav__list-item {{ 'active' if activePage == 'secretPage' }}">

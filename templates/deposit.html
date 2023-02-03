@@ -1,0 +1,47 @@
+{% extends "basetemplate.html" %}
+
+{% block title %}
+Customer: {{ customer.GivenName }}
+{% endblock %}
+
+
+{% block content %}
+<h1>{{ customer.GivenName }}</h1>
+<h1>{{ customer.Surname }}</h1>
+
+    id: {{ customer.Id }}
+
+Balance:<br><br>
+{%  for a in customer.Accounts  %}
+<h2>
+    <a href="/customer/account/{{ a.Id }}" class="btn">
+    {{ a.AccountType }}
+    </a>: {{ a.Balance}}<br><br>
+</h2>
+{%  endfor  %}
+<h1> Total: {{ Saldo }}
+
+    {% for field, errors in formen.errors.items() %}
+    {{ formen[field].label }}: {{ ', '.join(errors) }}
+    </br>
+    {% endfor %}
+
+   <form method="post">
+
+    {{ form.csrf_token }}
+
+    {{ form.Type(placeholder="Enter Type") }}
+
+    {{ form.Operation(placeholder="Enter Operation") }}
+
+    {{ form.Amount(placeholder="Enter Amount") }}
+
+    {{ form.NewBalance(placeholder="Enter Country") }}
+
+    
+
+    <input type="submit" value="Spara">
+   </form>
+{% endblock %}
+
+

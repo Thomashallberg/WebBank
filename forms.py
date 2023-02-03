@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import Form, BooleanField, StringField, PasswordField, validators, ValidationError
-from wtforms.fields import IntegerField, SelectField, DateField
+from wtforms.fields import IntegerField, SelectField, DateField, DecimalField
 
 def emailContains(form, field):
     if not field.data.endswith('.se'):
@@ -21,4 +21,8 @@ class NewCustomerForm(FlaskForm):
     Telephone = StringField('Phone', validators=[validators.DataRequired()])
     EmailAddress = StringField('E-Mail', validators=[validators.DataRequired()])
     
-    
+class DepositForm(FlaskForm):
+    Type = StringField('Type', validators=[validators.DataRequired()])
+    Operation = StringField('Operation', validators=[validators.DataRequired()])
+    Date = DateField('Date', validators=[validators.DataRequired()])
+    Amount = DecimalField('Amount', validators=[validators.DataRequired()])
