@@ -30,11 +30,33 @@
                           <i class="bx bx-list-ul"></i>
                           Contact</a>
                   </li>
-                  <li class="sidenav__list-item {{ 'active' if activePage == 'customersPage' }}">
+                <li> <li class="sidenav__list-item {{ 'active' if activePage == 'customersPage' }}">
                     <a href="/customers">
                         <i class="bx bx-list-ul"></i>
                         List customers</a>
                 </li>
+
+                <li class="sidenav__list-item {{ 'active' if activePage == 'secretPage' }}">
+                    <a href="/adminblabla">
+                        <i class="bx bx-list-ul"></i>
+                        Super secret</a>
+                </li>
+
+                <li class="sidenav__list-item {{ 'active' if activePage == 'secretPage' }}">
+                    <a href="/whatever">
+                        <i class="bx bx-list-ul"></i>
+                        Whatever link</a>
+                </li>
+
+                {{ current_user.email }}  
+
+                {% if current_user.is_authenticated %}
+                <li class="sidenav__list-item {{ 'active' if activePage == 'secretPage' }}">
+                    <a href="/logout">
+                        <i class="bx bx-list-ul"></i>
+                        Logout</a>
+                </li>
+                {% endif %}
               </ul>
           </aside>        
         <main class="main">

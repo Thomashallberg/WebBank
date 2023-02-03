@@ -2,9 +2,22 @@ from flask_sqlalchemy import SQLAlchemy
 import barnum
 import random
 from datetime import datetime  
-from datetime import timedelta  
+from datetime import timedelta
+from flask_security import hash_password
+from flask_security import Security, SQLAlchemyUserDatastore, auth_required, hash_password
+from flask_security.models import fsqla_v3 as fsqla
 
 db = SQLAlchemy()
+
+fsqla.FsModels.set_db_info(db)
+
+class Role(db.Model, fsqla.FsRoleMixin):
+    pass
+
+class User(db.Model, fsqla.FsUserMixin):
+    pass
+
+user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 
 class Customer(db.Model):
     __tablename__= "Customers"
@@ -128,4 +141,17 @@ def seedData(db):
         db.session.commit()
         
         antal = antal + 1
+
+def seedData(app,db):
+    app.security = Security(app, user_datastore)
+    app.security.datastore.db.create_all()
+    if not app.security.datastore.find_role("Admin"):
+        app.security.datastore.create_role(name="Admin")
+    if not app.security.datastore.find_role("Cashier"):
+        app.security.datastore.create_role(name="Cashier")
+    if not app.security.datastore.find_user(email="stefan.holmberg@systementor.se"):
+        app.security.datastore.create_user(email="stefan.holmberg@systementor.se", password=hash_password("Hejsan123#"),roles=["Admin"])
+    if not app.security.datastore.find_user(email="stefan.holmberg@systementor.se"):
+        app.security.datastore.create_user(email="stefan.holmberg@systementor.se", password=hash_password("Hejsan123#"),roles=["Cashier"])
+    app.security.datastore.db.session.commit()
 
