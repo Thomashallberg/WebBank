@@ -13,12 +13,11 @@ Customer: {{ customer.GivenName }}
 
 id: {{ customer.Id }} Balance:<br /><br />
 
-<h2>Deposit</h2>
+<h2>Withdrawal</h2>
 
 <form method="post">
 
 {{ form.csrf_token }}
-
 
 {{ form.Amount(placeholder="Enter Amount") }}
 

@@ -2,10 +2,11 @@ from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
 from model import db, seedData, Customer, Account, Transaction
-from forms import NewCustomerForm, DepositForm
+from forms import NewCustomerForm, DepositForm, WithdrawForm
 from datetime import datetime
 from flask_security import roles_accepted, auth_required, logout_user
 import os
+from utils import create_deposit, create_withdrawal
 
 # active page
 # Sorting
@@ -25,7 +26,13 @@ migrate = Migrate(app,db)
 
 @app.route("/")
 def startpage():
-	    return render_template("index.html", activePage="startPage" )
+    account = Account.query.filter(Account.Balance)
+    balance = 0
+    AllAccounts = Account.query.count()
+    customers = Customer.query.count()
+    for x in account:
+        balance += x.Balance
+    return render_template("index.html", activePage="startPage", balance=balance, AllAccounts=AllAccounts, customers=customers )
  
 @app.route("/logout")
 def logout():
@@ -132,26 +139,35 @@ def newcustomer():
         db.session.commit()
     return render_template("newcustomer.html", formen=form )
 
-@app.route("/deposit/<id>", methods=['GET', 'POST'])
+@app.route("/customer/account/newdeposit/<id>", methods=['GET', 'POST'])
 def deposit(id):
-    customer = Customer.query.filter_by(Id=id).first()
     account = Account.query.filter_by(Id = id).first()
+    customer = account.Customer
     form = DepositForm()
-    date = datetime()
-    
     if form.validate_on_submit():
-        account.Balance == account.Balance + form.Amount.data
-        newtransaction = Transaction()
-        newtransaction.Type = form.Type.data
-        newtransaction.Operation = form.Operation.data
-        newtransaction.Date = date
-        newtransaction.Amount = form.Amount.data
-        newtransaction.NewBalance = Account.Balance ==  Account.Balance + form.Amount.data
-        account.Transactions = [newtransaction]
-        db.session.add(newtransaction)
+        transaction = Transaction()
+        transaction.Amount = form.Amount.data
+        create_deposit(account, transaction)
+        db.session.add(account)
+        db.session.add(transaction)
         db.session.commit()
         
     return render_template("deposit.html", account=account, customer=customer, form=form)
+
+@app.route("/customer/account/newwithdrawal/<id>", methods=['GET', 'POST'])
+def withdrawal(id):
+    account = Account.query.filter_by(Id = id).first()
+    customer = account.Customer
+    form = WithdrawForm()
+    if form.validate_on_submit():
+        transaction = Transaction()
+        transaction.Amount = form.Amount.data
+        create_withdrawal(account, transaction)
+        db.session.add(account)
+        db.session.add(transaction)
+        db.session.commit()
+        
+    return render_template("withdrawal.html", account=account, customer=customer, form=form)
 
 @app.route("/editcustomer/<id>", methods=['GET', 'POST'])
 def editcustomer(id):

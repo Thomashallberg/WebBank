@@ -1,76 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}" asp-append-version="true">
-    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css'  rel='stylesheet'>
-    <title>
-        {% block title %}
-        {% endblock %}
-       </title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='style.css') }}"
+      asp-append-version="true"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <title>{% block title %} {% endblock %}</title>
+  </head>
+  <body>
     <div class="grid-container">
-        <header class="header">
-            <div class="header__avatar">
-                {{ current_user.email }}  
+      <header class="header">
+        <div class="header__avatar">
+          {{ current_user.email }}
+          <h1 class="bank-title">Banksystem</h1>
+          <p class="text-muted">The bank you always wanted</p>
+        </div>
+      </header>
+      <aside class="sidenav">
+        <div class="sidenav__logo">
+          <i class="bx bxl-c-plus-plus"></i>
+          <span class="sidenav__logo_name">Toompa</span>
+        </div>
+        <ul class="sidenav__list">
+          <li
+            class="sidenav__list-item {{ 'active' if activePage == 'startPage' }}"
+          >
+            <a href="/">
+              <i class="bx bx-list-ul"></i>
+              Contact</a
+            >
+          </li>
+          <li></li>
+          <li
+            class="sidenav__list-item {{ 'active' if activePage == 'customersPage' }}"
+          >
+            <a href="/customers">
+              <i class="bx bx-list-ul"></i>
+              List customers</a
+            >
+          </li>
 
+          <li
+            class="sidenav__list-item {{ 'active' if activePage == 'secretPage' }}"
+          >
+            <a href="/adminblabla">
+              <i class="bx bx-list-ul"></i>
+              Super secret</a
+            >
+          </li>
 
-            </div>
-          </header>
-          <aside class="sidenav">
-              <div class="sidenav__logo">
-                <i class="bx bxl-c-plus-plus"></i>
-                <span class="sidenav__logo_name">Toompa</span>
-              </div>
-              <ul class="sidenav__list">
-                  <li class="sidenav__list-item {{ 'active' if activePage == 'startPage' }}">
-                      <a href="/">
-                          <i class="bx bx-list-ul"></i>
-                          Contact</a>
-                  </li>
-                <li> <li class="sidenav__list-item {{ 'active' if activePage == 'customersPage' }}">
-                    <a href="/customers">
-                        <i class="bx bx-list-ul"></i>
-                        List customers</a>
-                </li>
+          <li
+            class="sidenav__list-item {{ 'active' if activePage == 'secretPage' }}"
+          >
+            <a href="/newcustomer">
+              <i class="bx bx-list-ul"></i>
+              New customer</a
+            >
+          </li>
+          <li
+          class="sidenav__list-item {{ 'active' if activePage == 'secretPage' }}"
+        >
+          <a href="/deposit">
+            <i class="bx bx-list-ul"></i>
+            Deposit money</a
+          >
+        </li>
 
-                <li class="sidenav__list-item {{ 'active' if activePage == 'secretPage' }}">
-                    <a href="/adminblabla">
-                        <i class="bx bx-list-ul"></i>
-                        Super secret</a>
-                </li>
-
-                <li class="sidenav__list-item {{ 'active' if activePage == 'secretPage' }}">
-                    <a href="/whatever">
-                        <i class="bx bx-list-ul"></i>
-                        Whatever link</a>
-                </li>
-
-                {% if current_user.is_authenticated %}
-                <li class="sidenav__list-item {{ 'active' if activePage == 'secretPage' }}">
-                    <a href="/logout">
-                        <i class="bx bx-list-ul"></i>
-                        Logout</a>
-                </li>
-                {% endif %}
-              </ul>
-          </aside>        
-        <main class="main">
-            {% block content %}
-            {% endblock %}
-        </main>
-        <footer class="footer">
-            {% block footer %}
-                <div class="footer__copyright">&copy; 2021 Systementor AB</div>
-                <div class="footer__signature">Made with love by Stefan Holmberg</div>
-            {% endblock %}
-        </footer>      
+          {% if current_user.is_authenticated %}
+          <li
+            class="sidenav__list-item {{ 'active' if activePage == 'secretPage' }}"
+          >
+            <a href="/logout">
+              <i class="bx bx-list-ul"></i>
+              Logout</a
+            >
+          </li>
+          {% endif %}
+        </ul>
+      </aside>
+      <main class="main">{% block content %} {% endblock %}</main>
+      <footer class="footer">
+        {% block footer %}
+        <div class="footer__copyright">&copy; 2021 Systementor AB</div>
+        <div class="footer__signature">Made with love by Stefan Holmberg</div>
+        {% endblock %}
+      </footer>
     </div>
-
-
-
-</body>
+  </body>
 </html>

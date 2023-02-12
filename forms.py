@@ -22,7 +22,7 @@ class NewCustomerForm(FlaskForm):
     EmailAddress = StringField('E-Mail', validators=[validators.DataRequired()])
     
 class DepositForm(FlaskForm):
-    Type = StringField('Type', validators=[validators.DataRequired()])
-    Operation = StringField('Operation', validators=[validators.DataRequired()])
-    Date = DateField('Date', validators=[validators.DataRequired()])
-    Amount = DecimalField('Amount', validators=[validators.DataRequired()])
+    Amount = IntegerField('Amount', validators=[validators.DataRequired()])
+    
+class WithdrawForm(FlaskForm):
+    Amount = IntegerField('Amount', validators=[validators.DataRequired()])
