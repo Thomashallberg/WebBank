@@ -2,11 +2,11 @@ from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
 from model import db, seedData, Customer, Account, Transaction
-from forms import NewCustomerForm, DepositForm, WithdrawForm
+from forms import NewCustomerForm, DepositForm, WithdrawForm, TransferForm
 from datetime import datetime
 from flask_security import roles_accepted, auth_required, logout_user
 import os
-from utils import create_deposit, create_withdrawal
+from utils import create_deposit, create_withdrawal, create_transfer
 
 # active page
 # Sorting
@@ -168,6 +168,30 @@ def withdrawal(id):
         db.session.commit()
         
     return render_template("withdrawal.html", account=account, customer=customer, form=form)
+
+@app.route("/customer/account/transfer/<id>", methods=['GET', 'POST'])
+def transfer(id):
+    account = Account.query.filter_by(Id = id).first()
+    customer = account.Customer
+    form = TransferForm()
+    if form.validate_on_submit():
+        transaction_receiver = Transaction()
+        transaction_sender = Transaction()
+        ReceiverAccount = Account.query.filter_by(Id = form.Receiver.data).first()
+        print(account.Balance)
+        print(ReceiverAccount)
+        print(ReceiverAccount.Balance)
+        transaction_receiver.Amount = form.Amount.data
+        transaction_sender.Amount = form.Amount.data
+        
+        create_transfer(account, ReceiverAccount, transaction_sender, transaction_receiver)
+        db.session.add(account)
+        db.session.add(ReceiverAccount)
+        db.session.add(transaction_receiver)
+        db.session.add(transaction_sender)
+        db.session.commit()
+        
+    return render_template("transfer.html", account=account, customer=customer, form=form)
 
 @app.route("/editcustomer/<id>", methods=['GET', 'POST'])
 def editcustomer(id):

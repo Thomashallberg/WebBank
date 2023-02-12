@@ -23,6 +23,7 @@ cc-number: {{ account.Id }} <br>Balance: {{account.Balance}}
     <th>NewBalance</th>
     <th><td><a href="/customer/account/newdeposit/{{ account.Id }}" class='btn'>Deposit</a></th>
         <th><td><a href="/customer/account/newwithdrawal/{{ account.Id }}" class='btn'>Withdrawal</a></th>
+        <th><td><a href="/customer/account/transfer/{{ account.Id }}" class='btn'>Transfer</a></th>
 </thead>
 <tbody>
     {%  for t in transaktioner   %}
