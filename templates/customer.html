@@ -8,6 +8,7 @@ Customer: {{ customer.GivenName }}
 {% block content %}
 <h1>{{ customer.GivenName }}</h1>
 <h1>{{ customer.Surname }}</h1>
+<a href="{{ url_for('editcustomer',id=customer.Id ) }}" class="button">Edit customer</a>
 <p>
     id: {{ customer.Id }}
 </p>

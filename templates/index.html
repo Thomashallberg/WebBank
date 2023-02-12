@@ -1,16 +1,23 @@
-{% extends "basetemplate.html" %}
+{% extends "basetemplate.html" %} {% block title %} Startsidan {% endblock %} {%
+block content %}
 
-{% block title %}
-Startsidan
+<h1>Banksystem</h1>
+<table>
+  <th>
+    <tr>
+      Balance
+    </tr>
+    <tr>
+      Customers
+    </tr>
+    <tr>
+      Accounts
+    </tr>
+  </th>
+
+  <td>{{ balance }}</td>
+  <td>{{ customers }}</td>
+  <td>{{ AllAccounts }}</td>
+</table>
+
 {% endblock %}
-
-
-{% block content %}
-
-<h1>Easy for me</h1>
-<p>Maskiiiin</p>
-
-
-{% endblock %}
-
-

@@ -1,0 +1,29 @@
+{% extends "basetemplate.html" %} 
+
+{% block title %} 
+
+Customer: {{ customer.GivenName }}
+
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ customer.GivenName }}</h1>
+<h1>{{ customer.Surname }}</h1>
+
+id: {{ customer.Id }} Balance:<br /><br />
+
+<h2>Deposit</h2>
+
+<form method="post">
+
+{{ form.csrf_token }}
+
+
+{{ form.Amount(placeholder="Enter Amount") }}
+
+
+
+  <input type="submit" value="Spara" />
+</form>
+{% endblock %}

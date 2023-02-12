@@ -1,0 +1,66 @@
+{% extends "baseTemplate.html" %}
+
+{% block content %}
+    {% for field, errors in formen.errors.items() %}
+    {{ formen[field].label }}: {{ ', '.join(errors) }}
+    {% endfor %}
+
+<form class="form-control" method="post">
+    <table class="table">
+    {{ formen.csrf_token }}
+    <h3>Edit customer</h3>
+    <tbody>
+        <tr>
+            <td>Firstname</td>
+            <td>{{ formen.GivenName(placeholder="John") }}</td>
+        </tr>
+        <tr>
+            <td>Lastname</td>
+            <td>{{ formen.Surname(placeholder="Smith") }} </td>
+        </tr>
+        <tr>
+            <td>Street Adress</td>
+            <td>{{ formen.Streetaddress(placeholder="Happy road") }}</td>
+        </tr>
+        <tr>
+            <td>City</td>
+            <td>{{ formen.City(placeholder="Mountain Village") }}</td>
+        </tr>
+        <tr>
+            <td>Zipcode</td>
+            <td>{{ formen.Zipcode(placeholder="12345") }}</td>
+        </tr>
+        <tr>
+            <td>Country</td>
+            <td>{{ formen.Country(placeholder="USA") }}</td>
+        </tr>
+        <tr>
+            <td>Country code</td>
+            <td>{{ formen.CountryCode(placeholder="US") }}</td>
+        </tr>
+        <tr>
+            <td>Birthday</td>
+            <td>{{ formen.Birthday(placeholder="Enter birthday") }}</td>
+        </tr>
+        <tr>
+            <td>National Id</td>
+            <td>{{ formen.NationalId(placeholder="YYMMDD-0000") }}</td>
+        </tr>
+        <tr>
+            <td>Telephone Countrycode</td>
+            <td>{{ formen.TelephoneCountryCode(placeholder="55") }}</td>
+        </tr>
+        <tr>
+            <td>Telephone</td>
+            <td>{{ formen.Telephone(placeholder="(000)222-2222") }}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{ formen.EmailAddress(placeholder="hello@mail.dk") }}</td>
+        </tr>
+    </tbody>
+    </table>
+    <br>
+    <input class="input" type="submit" value="Save">
+</form>
+{% endblock %}

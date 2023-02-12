@@ -2,15 +2,17 @@ from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
 from model import db, seedData, Customer, Account, Transaction
-from forms import NewCustomerForm
+from forms import NewCustomerForm, DepositForm, WithdrawForm
 from datetime import datetime
 from flask_security import roles_accepted, auth_required, logout_user
 import os
+from utils import create_deposit, create_withdrawal
 
 # active page
 # Sorting
 # paging
-
+#pip install flask-security-too
+#pip install flask_security
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:my-secret-pw@localhost/Bank'
@@ -24,7 +26,13 @@ migrate = Migrate(app,db)
 
 @app.route("/")
 def startpage():
-	    return render_template("index.html", activePage="startPage" )
+    account = Account.query.filter(Account.Balance)
+    balance = 0
+    AllAccounts = Account.query.count()
+    customers = Customer.query.count()
+    for x in account:
+        balance += x.Balance
+    return render_template("index.html", activePage="startPage", balance=balance, AllAccounts=AllAccounts, customers=customers )
  
 @app.route("/logout")
 def logout():
@@ -130,6 +138,72 @@ def newcustomer():
         db.session.add(customer)
         db.session.commit()
     return render_template("newcustomer.html", formen=form )
+
+@app.route("/customer/account/newdeposit/<id>", methods=['GET', 'POST'])
+def deposit(id):
+    account = Account.query.filter_by(Id = id).first()
+    customer = account.Customer
+    form = DepositForm()
+    if form.validate_on_submit():
+        transaction = Transaction()
+        transaction.Amount = form.Amount.data
+        create_deposit(account, transaction)
+        db.session.add(account)
+        db.session.add(transaction)
+        db.session.commit()
+        
+    return render_template("deposit.html", account=account, customer=customer, form=form)
+
+@app.route("/customer/account/newwithdrawal/<id>", methods=['GET', 'POST'])
+def withdrawal(id):
+    account = Account.query.filter_by(Id = id).first()
+    customer = account.Customer
+    form = WithdrawForm()
+    if form.validate_on_submit():
+        transaction = Transaction()
+        transaction.Amount = form.Amount.data
+        create_withdrawal(account, transaction)
+        db.session.add(account)
+        db.session.add(transaction)
+        db.session.commit()
+        
+    return render_template("withdrawal.html", account=account, customer=customer, form=form)
+
+@app.route("/editcustomer/<id>", methods=['GET', 'POST'])
+def editcustomer(id):
+    customer = Customer.query.filter_by(Id=id).first()
+    form = NewCustomerForm()
+
+    if form.validate_on_submit():
+        customer.GivenName = form.GivenName.data
+        customer.Surname = form.Surname.data
+        customer.Streetaddress = form.Streetaddress.data
+        customer.City = form.City.data
+        customer.Zipcode = form.Zipcode.data
+        customer.Country = form.Country.data
+        customer.CountryCode = form.CountryCode.data
+        customer.Birthday = form.Birthday.data
+        customer.NationalId = form.NationalId.data
+        customer.TelephoneCountryCode = form.TelephoneCountryCode.data
+        customer.Telephone = form.Telephone.data
+        customer.EmailAddress = form.EmailAddress.data
+        db.session.commit()
+        return redirect("/customers" )
+    if request.method == 'GET':
+        form.GivenName.data = customer.GivenName
+        form.Surname.data = customer.Surname
+        form.Streetaddress.data = customer.Streetaddress
+        form.City.data = customer.City
+        form.Zipcode.data = customer.Zipcode
+        form.Country.data = customer.Country
+        form.CountryCode.data = customer.CountryCode
+        form.Birthday.data = customer.Birthday
+        form.NationalId.data = customer.NationalId
+        form.TelephoneCountryCode.data = customer.TelephoneCountryCode
+        form.Telephone.data = customer.Telephone
+        form.EmailAddress.data = customer.EmailAddress
+    return render_template("editcustomer.html", formen=form )
+
 
 if __name__  == "__main__":
     with app.app_context():
