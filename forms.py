@@ -26,3 +26,7 @@ class DepositForm(FlaskForm):
     
 class WithdrawForm(FlaskForm):
     Amount = IntegerField('Amount', validators=[validators.DataRequired()])
+    
+class TransferForm(FlaskForm):
+    Receiver = IntegerField('Account-id', validators=[validators.DataRequired()])
+    Amount = IntegerField('Amount', validators=[validators.DataRequired()])

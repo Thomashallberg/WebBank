@@ -28,3 +28,21 @@ def create_withdrawal(account, transaction):
     transaction.Type = "Credit"
     transaction.Operation = "Bank withdrawal"
     account.Transactions.append(transaction)
+    
+def create_transfer(accountA,accountB,transactionA, transactionB):
+    now = datetime.now()
+    accountA.Balance = accountA.Balance - transactionA.Amount
+    accountB.Balance = accountB.Balance + transactionB.Amount
+    transactionA.NewBalance = accountA.Balance
+    transactionB.NewBalance = accountB.Balance
+    transactionA.AccountId = accountA.Id
+    transactionA.Date = now
+    transactionA.Type = "Credit"
+    transactionA.Operation = "Transfer"
+    transactionB.AccountId = accountB.Id
+    transactionB.Date = now
+    transactionB.Type = "Debit"
+    transactionB.Operation = "Transfer"
+    
+    accountA.Transactions.append(transactionA)
+    accountB.Transactions.append(transactionB)
