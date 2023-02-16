@@ -8,6 +8,7 @@ from flask_security.models import fsqla_v3 as fsqla
 
 db = SQLAlchemy()
 
+
 fsqla.FsModels.set_db_info(db)
 
 class Role(db.Model, fsqla.FsRoleMixin):
@@ -62,7 +63,8 @@ class Transaction(db.Model):
 
 def seedData(db):
     antal =  Customer.query.count()
-    while antal < 5000:
+    print(antal)
+    while antal < 100:
         customer = Customer()
         
         customer.GivenName, customer.Surname = barnum.create_name()
@@ -141,7 +143,7 @@ def seedData(db):
         
         antal = antal + 1
 
-def seedData(app,db):
+def seed_user(app,db):
     app.security = Security(app, user_datastore)
     app.security.datastore.db.create_all()
     if not app.security.datastore.find_role("Admin"):

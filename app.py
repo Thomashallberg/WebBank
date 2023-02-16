@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
-from model import db, seedData, Customer, Account, Transaction
+from model import db, seedData, seed_user, Customer, Account, Transaction
 from forms import NewCustomerForm, DepositForm, WithdrawForm, TransferForm
 from datetime import datetime
 from flask_security import roles_accepted, auth_required, logout_user
@@ -15,7 +15,8 @@ from utils import create_deposit, create_withdrawal, create_transfer
 #pip install flask_security
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:my-secret-pw@localhost/Bank'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://tompa:Aarin1991@bank.mysql.database.azure.com/bank?charset=utf8'
+#'mysql+mysqlconnector://root:my-secret-pw@localhost/Bank'
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", 'pf9Wkove4IKEAXvy-cQkeDPhv9Cb3Ag-wyJILbq_dFw')
 app.config['SECURITY_PASSWORD_SALT'] = os.environ.get("SECURITY_PASSWORD_SALT", '146585145368132386173505678016728509634')
 app.config["REMEMBER_COOKIE_SAMESITE"] = "strict"
@@ -233,8 +234,10 @@ if __name__  == "__main__":
     with app.app_context():
         #upgrade()
 
-        #seedData(db)
-        seedData(app, db)
+        seedData(db)
+        print("Startar seed")
+        seed_user(app, db)
+        print("Seeding done")
         app.run(debug=True)
 
         # while True:
