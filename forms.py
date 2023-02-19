@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import Form, BooleanField, StringField, PasswordField, validators, ValidationError
-from wtforms.fields import IntegerField, SelectField, DateField, DecimalField
+from wtforms.fields import IntegerField, SelectField, DateField, DecimalField, SubmitField
 
 def emailContains(form, field):
     if not field.data.endswith('.se'):
@@ -30,3 +30,7 @@ class WithdrawForm(FlaskForm):
 class TransferForm(FlaskForm):
     Receiver = IntegerField('Account-id', validators=[validators.DataRequired()])
     Amount = IntegerField('Amount', validators=[validators.DataRequired()])
+    
+class ResetRequestForm(FlaskForm):
+    email = StringField(label="E-mail", validators=[validators.DataRequired()])
+    password = PasswordField(label="Password", validators=[validators.DataRequired()])

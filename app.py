@@ -2,11 +2,12 @@ from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
 from model import db, seedData, seed_user, Customer, Account, Transaction
-from forms import NewCustomerForm, DepositForm, WithdrawForm, TransferForm
+from forms import NewCustomerForm, DepositForm, WithdrawForm, TransferForm, ResetRequestForm
 from datetime import datetime
-from flask_security import roles_accepted, auth_required, logout_user
+from flask_security import roles_accepted, auth_required, logout_user, hash_password
 import os
 from utils import create_deposit, create_withdrawal, create_transfer
+from flask_mail import Mail, Message
 
 # active page
 # Sorting
@@ -21,9 +22,37 @@ app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", 'pf9Wkove4IKEAXvy-cQkeDP
 app.config['SECURITY_PASSWORD_SALT'] = os.environ.get("SECURITY_PASSWORD_SALT", '146585145368132386173505678016728509634')
 app.config["REMEMBER_COOKIE_SAMESITE"] = "strict"
 app.config["SESSION_COOKIE_SAMESITE"] = "strict"
+
+app.config['MAIL_SERVER']='sandbox.smtp.mailtrap.io'
+app.config['MAIL_PORT'] = 2525
+app.config['MAIL_USERNAME'] = '11f618d9e4cbcf'
+app.config['MAIL_PASSWORD'] = '0654bc9d6179b6'
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+
+mail = Mail(app)
 db.app = app
 db.init_app(app)
 migrate = Migrate(app,db)
+
+
+def send_reset_mail(recipient, password):
+  msg = Message('Password reset', sender =   'Admin@mailtrap.io', recipients = [recipient])
+  msg.body = f"Hey, this is your new password: {password}"
+  mail.send(msg)
+  return "Message sent!"
+
+@app.route("/reset_password", methods=['GET', 'POST'])
+def reset_request():
+    form=ResetRequestForm()
+    if form.validate_on_submit():
+        send_reset_mail(form.email.data, form.password.data)
+        Update_user = app.security.datastore.find_user(email="stefan.holmberg@systementor.se")
+        Update_user.password=hash_password(form.password.data)
+        app.security.datastore.db.session.commit()
+        return render_template("reset_request.html", title="Reset request",form=form, mail_is_sent=True)
+    
+    return render_template("reset_request.html", title="Reset request", form=form, mail_is_sent=False)
 
 @app.route("/")
 def startpage():
@@ -39,6 +68,7 @@ def startpage():
 def logout():
     logout_user()
     return redirect("/")
+
 
 @app.route("/customerimage/<id>")
 def customerimagepage(id):
@@ -238,7 +268,7 @@ if __name__  == "__main__":
         print("Startar seed")
         seed_user(app, db)
         print("Seeding done")
-        app.run(debug=True)
+        app.run(host='0.0.0.0', debug=True)
 
         # while True:
         #     print("1. Create")
