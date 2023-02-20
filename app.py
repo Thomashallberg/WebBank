@@ -4,10 +4,11 @@ from flask_migrate import Migrate, upgrade
 from model import db, seedData, seed_user, Customer, Account, Transaction
 from forms import NewCustomerForm, DepositForm, WithdrawForm, TransferForm, ResetRequestForm
 from datetime import datetime
-from flask_security import roles_accepted, auth_required, logout_user, hash_password
+from flask_security import roles_accepted, auth_required, logout_user
 import os
 from utils import create_deposit, create_withdrawal, create_transfer
 from flask_mail import Mail, Message
+from flask_security.utils import hash_password
 
 # active page
 # Sorting
