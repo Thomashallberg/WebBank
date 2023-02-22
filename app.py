@@ -191,39 +191,48 @@ def withdrawal(id):
     account = Account.query.filter_by(Id = id).first()
     customer = account.Customer
     form = WithdrawForm()
+    NotEnough = ["You don't have sufficient funds for this transaction"]
     if form.validate_on_submit():
         transaction = Transaction()
         transaction.Amount = form.Amount.data
-        create_withdrawal(account, transaction)
-        db.session.add(account)
-        db.session.add(transaction)
-        db.session.commit()
+        if account.Balance < form.Amount.data:
+            form.Amount.errors = form.Amount.errors+NotEnough
+        else:
+            create_withdrawal(account, transaction)
+            db.session.add(account)
+            db.session.add(transaction)
+            db.session.commit()
         
-    return render_template("withdrawal.html", account=account, customer=customer, form=form)
+    return render_template("withdrawal.html", account=account, customer=customer, form=form, NotEnough=NotEnough)
 
 @app.route("/customer/account/transfer/<id>", methods=['GET', 'POST'])
 def transfer(id):
     account = Account.query.filter_by(Id = id).first()
     customer = account.Customer
     form = TransferForm()
+    NotEnough = ["You don't have sufficient funds for this transaction"]
+    Doesnt_exist = [f"There is no account with this number {form.Receiver.data}"]
     if form.validate_on_submit():
         transaction_receiver = Transaction()
         transaction_sender = Transaction()
         ReceiverAccount = Account.query.filter_by(Id = form.Receiver.data).first()
-        print(account.Balance)
-        print(ReceiverAccount)
-        print(ReceiverAccount.Balance)
         transaction_receiver.Amount = form.Amount.data
         transaction_sender.Amount = form.Amount.data
         
-        create_transfer(account, ReceiverAccount, transaction_sender, transaction_receiver)
-        db.session.add(account)
-        db.session.add(ReceiverAccount)
-        db.session.add(transaction_receiver)
-        db.session.add(transaction_sender)
-        db.session.commit()
+        if ReceiverAccount == None:
+            form.Amount.errors = form.Amount.errors+Doesnt_exist
+        if account.Balance < form.Amount.data:
+            form.Amount.errors = form.Amount.errors+NotEnough
         
-    return render_template("transfer.html", account=account, customer=customer, form=form)
+        elif ReceiverAccount != None:
+            create_transfer(account, ReceiverAccount, transaction_sender, transaction_receiver)
+            db.session.add(account)
+            db.session.add(ReceiverAccount)
+            db.session.add(transaction_receiver)
+            db.session.add(transaction_sender)
+            db.session.commit()
+        
+    return render_template("transfer.html", account=account, customer=customer, form=form, NotEnough=NotEnough)
 
 @app.route("/editcustomer/<id>", methods=['GET', 'POST'])
 def editcustomer(id):
