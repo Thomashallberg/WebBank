@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>eBusiness Bootstrap Template - Index</title>
+  <title>eBank</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -34,15 +34,15 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
-
 <body>
+    
 
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex justify-content-between">
 
       <div class="logo">
-        <h1><a href="index.html"><span>e</span>Business</a></h1>
+        <h1><a href="index.html"><span>e</span>Bank</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
@@ -50,8 +50,8 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#services">Services</a></li>
+          <li><a class="nav-link scrollto" href="/customers">Customers</a></li>
+          <li><a class="nav-link scrollto" href="/newcustomer">New customer</a></li>
           <li><a class="nav-link scrollto" href="#portfolio">Portfolio</a></li>
           <li><a class="nav-link scrollto" href="#team">Team</a></li>
           <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
@@ -82,9 +82,9 @@
           <div class="carousel-item active" style="background-image: url(../static/assets/img/hero-carousel/1.jpg)">
             <div class="carousel-container">
               <div class="container">
-                <h2 class="animate__animated animate__fadeInDown">The Best Business Information </h2>
-                <p class="animate__animated animate__fadeInUp">We're In The Business Of Helping You Start Your Business</p>
-                <a href="#about" class="btn-get-started scrollto animate__animated animate__fadeInUp">Get Started</a>
+                <h2 class="animate__animated animate__fadeInDown">Wayne Gretzky</h2>
+                <p class="animate__animated animate__fadeInUp">You miss 100% of the shots you don't take</p>
+                <a href="security/login_user" class="btn-get-started scrollto animate__animated animate__fadeInUp">Login</a>
               </div>
             </div>
           </div>
@@ -92,9 +92,9 @@
           <div class="carousel-item" style="background-image: url(../static/assets/img/hero-carousel/2.jpg)">
             <div class="carousel-container">
               <div class="container">
-                <h2 class="animate__animated animate__fadeInDown">At vero eos et accusamus</h2>
-                <p class="animate__animated animate__fadeInUp">Helping Business Security & Peace of Mind for Your Family</p>
-                <a href="#about" class="btn-get-started scrollto animate__animated animate__fadeInUp">Get Started</a>
+                <h2 class="animate__animated animate__fadeInDown">Sidney Crosby</h2>
+                <p class="animate__animated animate__fadeInUp">Dreams are so important. You need to have big goals and expect a lot of yourself but you have to enjoy the ride too.</p>
+                <a href="security/login_user" class="btn-get-started scrollto animate__animated animate__fadeInUp">Login</a>
               </div>
             </div>
           </div>
@@ -114,7 +114,7 @@
   </section><!-- End Hero Section -->
 
   <main id="main">
-
+    {% block content %}{% endblock %}
   
 
     <!-- ======= Services Section ======= -->
@@ -123,7 +123,7 @@
         <div class="row">
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="section-headline services-head text-center">
-              <h2>Our Services</h2>
+              <h1><span>e</span>Bank</a></h1>
             </div>
           </div>
         </div>
@@ -255,7 +255,7 @@
                 <div class="single-icon">
                   <i class="bi bi-phone"></i>
                   <p>
-                    Call: +1 5589 55488 55<br>
+                    Call: +46 734 2349 86<br>
                     <span>Monday-Friday (9am-5pm)</span>
                   </p>
                 </div>
@@ -267,8 +267,8 @@
                 <div class="single-icon">
                   <i class="bi bi-envelope"></i>
                   <p>
-                    Email: info@example.com<br>
-                    <span>Web: www.example.com</span>
+                    Email: thomas4497@gmail.com<br>
+                    <span>Web: linkedin.com/in/thomas-hallberg-7b2936232></span>
                   </p>
                 </div>
               </div>
@@ -279,8 +279,8 @@
                 <div class="single-icon">
                   <i class="bi bi-geo-alt"></i>
                   <p>
-                    Location: A108 Adam Street<br>
-                    <span>NY 535022, USA</span>
+                    Location: Trädgårdsvägen 9<br>
+                    <span>Surahammar 735 31, Sweden</span>
                   </p>
                 </div>
               </div>
@@ -291,7 +291,7 @@
             <!-- Start Google Map -->
             <div class="col-md-6">
               <!-- Start Map -->
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22864.11283411948!2d-73.96468908098944!3d40.630720240038435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew+York%2C+NY%2C+USA!5e0!3m2!1sen!2sbg!4v1540447494452" width="100%" height="380" frameborder="0" style="border:0" allowfullscreen></iframe>
+              <iframe src="https://maps.google.com/maps?q=Surahammar,%20tr%C3%A4dg%C3%A5rdsv%C3%A4gen%209&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="380" frameborder="0" style="border:0" allowfullscreen></iframe>
               <!-- End Map -->
             </div>
             <!-- End Google Map -->
@@ -338,10 +338,10 @@
             <div class="footer-content">
               <div class="footer-head">
                 <div class="footer-logo">
-                  <h2><span>e</span>Business</h2>
+                  <h2><span>e</span>Bank</h2>
                 </div>
 
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.</p>
+                <p>Vi finns även på sociala medier.</p>
                 <div class="footer-icons">
                   <ul>
                     <li>
@@ -367,11 +367,11 @@
               <div class="footer-head">
                 <h4>information</h4>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+                  Kontakta oss om du har frågor
                 </p>
                 <div class="footer-contacts">
-                  <p><span>Tel:</span> +123 456 789</p>
-                  <p><span>Email:</span> contact@example.com</p>
+                  <p><span>Tel:</span> +46-0734-234-986</p>
+                  <p><span>Email:</span> thomas4497@gmail.com</p>
                   <p><span>Working Hours:</span> 9am-5pm</p>
                 </div>
               </div>
@@ -381,7 +381,7 @@
           <div class="col-md-4">
             <div class="footer-content">
               <div class="footer-head">
-                <h4>Instagram</h4>
+                <h4>Our offices</h4>
                 <div class="flicker-img">
                   <a href="#"><img src="../static/assets/img/portfolio/1.jpg" alt=""></a>
                   <a href="#"><img src="../static/assets/img/portfolio/2.jpg" alt=""></a>
@@ -402,7 +402,7 @@
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="copyright text-center">
               <p>
-                &copy; Copyright <strong>eBusiness</strong>. All Rights Reserved
+                &copy; Copyright <strong>eBank</strong>. All Rights Reserved
               </p>
             </div>
             <div class="credits">
@@ -412,7 +412,7 @@
               Licensing information: https://bootstrapmade.com/license/
               Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=eBusiness
             -->
-              Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+              Designed by <a href="#">Thomas</a>
             </div>
           </div>
         </div>

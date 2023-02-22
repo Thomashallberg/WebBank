@@ -1,4 +1,4 @@
-{% extends "basetemplate.html" %}
+{% extends "EmptyBaseTemplate.html" %}
 
 {% block title %}
 Customer: {{ customer.GivenName }}
@@ -22,7 +22,7 @@ Customer: {{ customer.GivenName }}
     Telefon: +{{ customer.TelephoneCountryCode }} -  {{ customer.Telephone }}
 </p>
 <p>
-    <img src="https://img.systementor.se/{{ customer.Id }}/500/400" />
+    <img src="https://img.systementor.se/{{ customer.Id }}/60/40" />
 </p>
 Balance:<br><br>
 {%  for a in customer.Accounts  %}

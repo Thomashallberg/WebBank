@@ -566,6 +566,11 @@ div#preloader {
   right: 0;
   left: 0;
   bottom: 0;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  
 }
 
 #hero .carousel-item {
@@ -595,7 +600,7 @@ div#preloader {
 }
 
 #hero h2 {
-  color: #fff;
+  color: #3ec1d5;
   margin-bottom: 20px;
   font-size: 24px;
   font-weight: 700;
@@ -736,12 +741,27 @@ div#preloader {
 /*--------------------------------------------------------------
 # Services
 --------------------------------------------------------------*/
+
+.hero-container-empty h1, h2{
+
+    color: #3ec1d5;
+    margin-bottom: 12px;
+    font-size: 12px;
+    font-weight: 100;
+
+}
+.hero-container-empty p{
+  color: white;
+  margin-bottom: 12px;
+  font-size: 12px;
+  font-weight: 100;
+}
 .services-icon {
   color: #3ec1d5;
   display: inline-block;
   font-size: 36px;
   line-height: 36px;
-  margin-bottom: 20px;
+  margin-bottom: 20px;https://learn.microsoft.com/en-us/azure/app-service/quickstart-python?tabs=flask%2Cwindows%2Cazure-portal%2Czip-deploy%2Cdeploy-instructions-azportal%2Cterminal-bash%2Cdeploy-instructions-zip-azcli&pivots=python-framework-flask Bra länk om man inte vill deploya genom just vscode utan göra genom azure portal och deploya via github repositoriet istället
 }
 
 .section-headline.services-head>h2 {
@@ -1569,9 +1589,10 @@ div#preloader {
 }
 
 .php-email-form button[type=submit] {
-  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-  border: 1px solid #ccc;
-  color: #444;
+  background: transparent;
+  border-style: solid;
+  color: #3ec1d5;
+  border-color: #3ec1d5;
   font-size: 16px;
   font-weight: 700;
   margin-top: 8px;
