@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, jsonify, Response
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
 from model import db, seedData, seed_user, Customer, Account, Transaction
@@ -35,6 +35,8 @@ mail = Mail(app)
 db.app = app
 db.init_app(app)
 migrate = Migrate(app,db)
+
+
 
 
 def send_reset_mail(recipient, password):
@@ -93,12 +95,23 @@ def customerpage(id):
 def adminblblapage():
     return render_template("adminblabla.html", activePage="secretPage" )
 
-@app.route("/customer/account/<id>")
+@app.route("/customer/account/<id>", methods=["GET"])
 def Transaktioner(id):
     account = Account.query.filter_by(Id = id).first()
     transaktioner = Transaction.query.filter_by(AccountId=id)
     transaktioner = transaktioner.order_by(Transaction.Date.desc())
-    return render_template("Transaktioner.html", account=account, transaktioner=transaktioner)
+    # get_api(id)
+    return render_template("Transaktioner.html", account=account, transaktioner=transaktioner, List_of_transactions=Response)
+@app.route("/api/customer/account/<id>/", methods=["GET"])
+def get_api(id):
+    List_of_transactions = []
+    page = int(request.args.get('page', 1))
+    transaktioner = Transaction.query.filter_by(AccountId=id).order_by(Transaction.Date.desc()).paginate(page=page,per_page=10,error_out=False )
+    
+    for t in transaktioner:
+        t = { "ID":t.Id, "Type": t.Operation, "Date":t.Date, "Amount": t.Amount, "NewBalance": t.NewBalance, "AccountId": t.AccountId}
+        List_of_transactions.append(t)
+    return jsonify(List_of_transactions)
 
 @app.route("/customers")
 @auth_required()

@@ -3,6 +3,9 @@
 {% block title %}
 Kontonamn
 {% endblock %}
+{% block head %}
+
+{% endblock%}
 
 
 {% block content %}
@@ -13,7 +16,7 @@ Kontonamn
 <h2>
 cc-number: {{ account.Id }} <br>Balance: {{account.Balance}}
 </h2>
-<table class="table">
+<table class="table" id="posts-table">
 <thead>
     <th>Id</th>
     <th>Date</th>
@@ -38,5 +41,38 @@ cc-number: {{ account.Id }} <br>Balance: {{account.Balance}}
     {%  endfor  %}
     </tbody>
 </table>
+
+
+<button onclick="fetchMore()">Working!</button>
+
+<script>
+    pageNo = 1;
+    function fetchMore(){
+        fetch("/api/customer/account/278/?page=" + pageNo)
+        .then((response) => response.json())
+        .then((json) => {
+            pageNo = pageNo + 1;
+            json.forEach(tableElements);
+        }
+    );
+}
+
+
+function tableElements(element){
+    document.querySelector('#posts-table tbody').innerHTML +=
+    `<tr>
+        <td>${element.ID}</td>
+        <td>${element.Type}</td>
+        <td>${element.Date}</td>
+        <td>${element.Amount}</td>
+        <td>${element.NewBalance}</td>
+        <td>${element.AccountId}</td>
+    </tr>`;
+}
+document.addEventListener("DOMContentLoaded", function (){
+    fetchMore();
+});
+</script>
+
 
 {% endblock %}
