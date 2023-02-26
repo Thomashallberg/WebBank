@@ -205,18 +205,21 @@ def withdrawal(id):
     customer = account.Customer
     form = WithdrawForm()
     NotEnough = ["You don't have sufficient funds for this transaction"]
+    NoNegative = ["You can't enter negative numbers"]
     if form.validate_on_submit():
         transaction = Transaction()
         transaction.Amount = form.Amount.data
         if account.Balance < form.Amount.data:
             form.Amount.errors = form.Amount.errors+NotEnough
+        if form.Amount.data < 1:
+            form.Amount.errors = form.Amount.errors+NoNegative
         else:
             create_withdrawal(account, transaction)
             db.session.add(account)
             db.session.add(transaction)
             db.session.commit()
         
-    return render_template("withdrawal.html", account=account, customer=customer, form=form, NotEnough=NotEnough)
+    return render_template("withdrawal.html", account=account, customer=customer, form=form, NotEnough=NotEnough, NoNegative=NoNegative)
 
 @app.route("/customer/account/transfer/<id>", methods=['GET', 'POST'])
 def transfer(id):
