@@ -143,7 +143,7 @@ def customerspage():
         else:
             listOfCustomers = listOfCustomers.order_by(Customer.City.desc())
 
-    paginationObject = listOfCustomers.paginate(page=page,per_page=30,error_out=False )
+    paginationObject = listOfCustomers.paginate(page=page,per_page=10,error_out=False )
     return render_template("customers.html", 
                     listOfCustomers=paginationObject.items, 
                     activePage="customersPage",
