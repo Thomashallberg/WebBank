@@ -5,37 +5,31 @@ Customer: {{ customer.GivenName }}
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <table class="tablecustomer">
-
+<div class="container2">
+       
+    
+            <p class="titlar">{{ customer.GivenName }}</p>
+       
+            <p class="titlar">{{ customer.Surname }}</p>
+        <a href="{{ url_for('editcustomer',id=customer.Id ) }}" class="button">Edit customer</a>
+       
+           <p> id: {{ customer.Id }}</p>
         
-        <tbody>
-            
-            <td>
-                {{ customer.GivenName }}
-            </td>
-            <td>
-            {{ customer.Surname }}
-            </td>
-            <td>
-<a href="{{ url_for('editcustomer',id=customer.Id ) }}" class="button">Edit customer</a>
-            </td>
-            <td>
-    id: {{ customer.Id }}
-            </td>
-            <td>
-    City: {{ customer.City }}
-            </td>
-            <td>
-    Streetaddress: {{ customer.Streetaddress }}
-            </td>
-            <td>
-    Telefon: +{{ customer.TelephoneCountryCode }} -  {{ customer.Telephone }}
-            </td>
-            <td>
-    <img src="https://img.systementor.se/{{ customer.Id }}/60/40" />
-            </td>
-        </table>
+         <p>City: {{ customer.City }}></p>
+        
+
+        <p>Streetaddress: {{ customer.Streetaddress }}</p>
+        
+
+        <p>Telefon: +{{ customer.TelephoneCountryCode }} -  {{ customer.Telephone }}</p>
+        
+
+        <p class="titlar"><img src="https://img.systementor.se/{{ customer.Id }}/60/40" /></p>
+        
+        
+        <div class="kund"
+        <h1>{{ customer.GivenName }}</h1>
+</div>
 
 <div class="konton"
 Balance:<br><br>
@@ -44,7 +38,7 @@ Balance:<br><br>
     {{ a.AccountType }}
     </a>: {{ a.Balance}}<br><br>
     {%  endfor  %}
-    <h1> Total: {{ Saldo }}
+    <h3> Total: {{ Saldo }}</h3>
 </div>
 </div>
 {% endblock %}

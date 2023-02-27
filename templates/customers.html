@@ -14,7 +14,7 @@ Alla customers
     
     <form method="get">
         <input type="text" class="searchform" placeholder="search" value="{{ q }}" name="q">
-        Visar sidan {{ page }} av totalt {{ pages }}
+       
     <input class="btn" type=submit value="Sök">
 </form>
 
@@ -85,7 +85,9 @@ Alla customers
         </tfoot>
 
 </table>
-
+<p>
+Visar sidan {{ page }} av totalt {{ pages }}
+</p>
 </div>
 
 {% endblock %}

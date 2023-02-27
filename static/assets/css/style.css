@@ -146,8 +146,24 @@ table.tb2 th, table.tb2 td {
   padding: 2px 10px;
 
 }
+.container2 {
+margin-top: 100px;
+  
+
+}
+.container2 p {
+  color: white;
+  font-size: 8px;
+  
+
+}
+.container2 h3 {
+  color: aqua;
+  font-size: 12px;
+
+}
 .table {
-  height: 462px;
+  height: 250px;
   width: 900px;
   margin-top: 20px;
   margin-left: 250px;
@@ -174,6 +190,13 @@ input::-webkit-outer-spin-button,
   margin-top: 20px;
   margin-left: 250px;
   color: white;
+  text-align: left;
+
+}
+.tablecustomer tr, td, th {
+  border-collapse: separate;
+  border-spacing: 20px 15px;
+  padding: 2px 10px;
 }
 
 
