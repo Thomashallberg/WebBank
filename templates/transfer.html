@@ -24,7 +24,13 @@ id: {{ customer.Id }} Balance:<br /><br />
 
 
 {{ form.Amount(placeholder="Enter Amount") }}
-
+{% if form.Amount.errors %}
+<ul>
+  {% for error in form.Amount.errors %}
+    <li>{{ error }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
 
 
   <input type="submit" value="Spara" />

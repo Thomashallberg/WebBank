@@ -20,14 +20,19 @@ def create_deposit(account, transaction):
     
 def create_withdrawal(account, transaction):
     now = datetime.now()
-    
-    account.Balance = account.Balance - transaction.Amount
-    transaction.NewBalance = account.Balance
-    transaction.AccountId = account.Id
-    transaction.Date = now
-    transaction.Type = "Credit"
-    transaction.Operation = "Bank withdrawal"
-    account.Transactions.append(transaction)
+    if transaction.Amount > 1:
+        account.Balance = account.Balance - transaction.Amount
+        transaction.NewBalance = account.Balance
+        transaction.AccountId = account.Id
+        transaction.Date = now
+        transaction.Type = "Credit"
+        transaction.Operation = "Bank withdrawal"
+        account.Transactions.append(transaction)
+    else:
+        account.Balance = account.Balance
+        transaction.NewBalance = account.Balance
+        
+        
     
 def create_transfer(accountA,accountB,transactionA, transactionB):
     now = datetime.now()

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, jsonify, Response
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
 from model import db, seedData, seed_user, Customer, Account, Transaction
@@ -35,6 +35,8 @@ mail = Mail(app)
 db.app = app
 db.init_app(app)
 migrate = Migrate(app,db)
+
+
 
 
 def send_reset_mail(recipient, password):
@@ -93,12 +95,23 @@ def customerpage(id):
 def adminblblapage():
     return render_template("adminblabla.html", activePage="secretPage" )
 
-@app.route("/customer/account/<id>")
+@app.route("/customer/account/<id>", methods=["GET"])
 def Transaktioner(id):
     account = Account.query.filter_by(Id = id).first()
     transaktioner = Transaction.query.filter_by(AccountId=id)
     transaktioner = transaktioner.order_by(Transaction.Date.desc())
-    return render_template("Transaktioner.html", account=account, transaktioner=transaktioner)
+    # get_api(id)
+    return render_template("Transaktioner.html", account=account, transaktioner=transaktioner, List_of_transactions=Response)
+@app.route("/api/customer/account/<id>/", methods=["GET"])
+def get_api(id):
+    List_of_transactions = []
+    page = int(request.args.get('page', 1))
+    transaktioner = Transaction.query.filter_by(AccountId=id).order_by(Transaction.Date.desc()).paginate(page=page,per_page=10,error_out=False )
+    
+    for t in transaktioner:
+        t = { "ID":t.Id, "Type": t.Operation, "Date":t.Date, "Amount": t.Amount, "NewBalance": t.NewBalance, "AccountId": t.AccountId}
+        List_of_transactions.append(t)
+    return jsonify(List_of_transactions)
 
 @app.route("/customers")
 @auth_required()
@@ -130,7 +143,11 @@ def customerspage():
         else:
             listOfCustomers = listOfCustomers.order_by(Customer.City.desc())
 
+<<<<<<< HEAD
     paginationObject = listOfCustomers.paginate(page=page,per_page=6,error_out=False )
+=======
+    paginationObject = listOfCustomers.paginate(page=page,per_page=10,error_out=False )
+>>>>>>> main
     return render_template("customers.html", 
                     listOfCustomers=paginationObject.items, 
                     activePage="customersPage",
@@ -191,39 +208,51 @@ def withdrawal(id):
     account = Account.query.filter_by(Id = id).first()
     customer = account.Customer
     form = WithdrawForm()
+    NotEnough = ["You don't have sufficient funds for this transaction"]
+    NoNegative = ["You can't enter negative numbers"]
     if form.validate_on_submit():
         transaction = Transaction()
         transaction.Amount = form.Amount.data
-        create_withdrawal(account, transaction)
-        db.session.add(account)
-        db.session.add(transaction)
-        db.session.commit()
+        if account.Balance < form.Amount.data:
+            form.Amount.errors = form.Amount.errors+NotEnough
+        if form.Amount.data < 1:
+            form.Amount.errors = form.Amount.errors+NoNegative
+        else:
+            create_withdrawal(account, transaction)
+            db.session.add(account)
+            db.session.add(transaction)
+            db.session.commit()
         
-    return render_template("withdrawal.html", account=account, customer=customer, form=form)
+    return render_template("withdrawal.html", account=account, customer=customer, form=form, NotEnough=NotEnough, NoNegative=NoNegative)
 
 @app.route("/customer/account/transfer/<id>", methods=['GET', 'POST'])
 def transfer(id):
     account = Account.query.filter_by(Id = id).first()
     customer = account.Customer
     form = TransferForm()
+    NotEnough = ["You don't have sufficient funds for this transaction"]
+    Doesnt_exist = [f"There is no account with this number {form.Receiver.data}"]
     if form.validate_on_submit():
         transaction_receiver = Transaction()
         transaction_sender = Transaction()
         ReceiverAccount = Account.query.filter_by(Id = form.Receiver.data).first()
-        print(account.Balance)
-        print(ReceiverAccount)
-        print(ReceiverAccount.Balance)
         transaction_receiver.Amount = form.Amount.data
         transaction_sender.Amount = form.Amount.data
         
-        create_transfer(account, ReceiverAccount, transaction_sender, transaction_receiver)
-        db.session.add(account)
-        db.session.add(ReceiverAccount)
-        db.session.add(transaction_receiver)
-        db.session.add(transaction_sender)
-        db.session.commit()
+        if ReceiverAccount == None:
+            form.Amount.errors = form.Amount.errors+Doesnt_exist
+        if account.Balance < form.Amount.data:
+            form.Amount.errors = form.Amount.errors+NotEnough
         
-    return render_template("transfer.html", account=account, customer=customer, form=form)
+        elif ReceiverAccount != None:
+            create_transfer(account, ReceiverAccount, transaction_sender, transaction_receiver)
+            db.session.add(account)
+            db.session.add(ReceiverAccount)
+            db.session.add(transaction_receiver)
+            db.session.add(transaction_sender)
+            db.session.commit()
+        
+    return render_template("transfer.html", account=account, customer=customer, form=form, NotEnough=NotEnough)
 
 @app.route("/editcustomer/<id>", methods=['GET', 'POST'])
 def editcustomer(id):
