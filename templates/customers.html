@@ -6,15 +6,15 @@ Alla customers
 
 
 
+{% block content %}
 <div class="container">
-    {% block content %}{% endblock %}
     <!-- Content here -->
 
 
-Visar sidan {{ page }} av totalt {{ pages }}
-
-<form method="get">
-    <input type="text" placeholder="search" value="{{ q }}" name="q">
+    
+    <form method="get">
+        <input type="text" class="searchform" placeholder="search" value="{{ q }}" name="q">
+        Visar sidan {{ page }} av totalt {{ pages }}
     <input class="btn" type=submit value="Sök">
 </form>
 
@@ -88,4 +88,4 @@ Visar sidan {{ page }} av totalt {{ pages }}
 
 </div>
 
-
+{% endblock %}

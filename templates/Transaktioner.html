@@ -1,11 +1,11 @@
-{% extends "basetemplate.html" %}
-
+{% extends "EmptyBaseTemplate.html" %}
 {% block title %}
 Kontonamn
 {% endblock %}
 
 
 {% block content %}
+<div class="container">
 <h1>
     Account name: 
 {{ account.AccountType }}
@@ -38,5 +38,5 @@ cc-number: {{ account.Id }} <br>Balance: {{account.Balance}}
     {%  endfor  %}
     </tbody>
 </table>
-
 {% endblock %}
+</div>
