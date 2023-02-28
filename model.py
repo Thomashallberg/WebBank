@@ -1,16 +1,11 @@
-import random
 from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
-
-from flask_security import hash_password
-from flask_security import Security, SQLAlchemyUserDatastore, auth_required, hash_password
-from flask_security.models import fsqla_v3 as fsqla
 import barnum
 import random
-from datetime import datetime  
-from datetime import timedelta
 from datetime import datetime
+from datetime import timedelta
+from flask_security import hash_password
+from flask_security import Security, SQLAlchemyUserDatastore, hash_password
+from flask_security.models import fsqla_v3 as fsqla
 
 db = SQLAlchemy()
 
@@ -150,7 +145,7 @@ def seedData(db):
         antal = antal + 1
 
 def seed_user(app,db):
-    app.security = Security(app, user_datastore)
+   
     app.security.datastore.db.create_all()
     if not app.security.datastore.find_role("Admin"):
         app.security.datastore.create_role(name="Admin")

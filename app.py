@@ -1,15 +1,21 @@
-from flask import Flask, render_template, request, redirect, jsonify, Response
+from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
-from model import db, seedData, seed_user, Customer, Account, Transaction
-from forms import NewCustomerForm, DepositForm, WithdrawForm, TransferForm, ResetRequestForm
-from datetime import datetime
-from flask_security import roles_accepted, auth_required, logout_user
+from model import Customer, Account, Transaction
+from model import db, user_datastore,seedData, seed_user
+from forms import NewCustomerForm, TransferForm, ResetRequestForm
 import os
-from utils import create_deposit, create_withdrawal, create_transfer
-from flask_mail import Mail, Message
-from flask_security.utils import hash_password
+from flask_security import roles_accepted, auth_required, logout_user
+from datetime import datetime
 
+from flask_security import Security, SQLAlchemyUserDatastore, auth_required
+
+from model import user_datastore
+from flask import Flask, render_template, request, redirect, jsonify, Response
+from flask_mail import Mail, Message
+from utils import create_deposit, create_withdrawal, create_transfer
+from forms import NewCustomerForm, DepositForm, WithdrawForm, TransferForm, ResetRequestForm
+seedData, seed_user
 # active page
 # Sorting
 # paging
@@ -35,7 +41,7 @@ mail = Mail(app)
 db.app = app
 db.init_app(app)
 migrate = Migrate(app,db)
-
+app.security = Security(app, user_datastore)
 
 
 

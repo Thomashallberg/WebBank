@@ -3,16 +3,13 @@ import barnum
 import random
 from datetime import datetime  
 from datetime import timedelta
-from flask_security import Security, SQLAlchemyUserDatastore, auth_required, hash_password
-from flask_security.models import fsqla_v3 as fsqla
 from model import Account, Transaction
 from utils import create_deposit, create_withdrawal, create_transfer
 from flask import request, jsonify, Response
 import pytest
-from flask import Flask
-import os
 
 
+from utils import create_deposit, create_withdrawal, create_transfer
 
 
 def test_deposit():
