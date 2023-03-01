@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'Thomasbank'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F45484461E2B4F9181FC1DF026548048 }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
