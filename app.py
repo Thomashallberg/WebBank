@@ -102,8 +102,9 @@ def adminblblapage():
 def Transaktioner(id):
     account = Account.query.filter_by(Id = id).first()
     transaktioner = Transaction.query.filter_by(AccountId=id)
-    transaktioner = transaktioner.order_by(Transaction.Date.desc())
-    # get_api(id)
+    page = int(request.args.get('page', 1))
+    transaktioner = transaktioner.order_by(Transaction.Date.desc()).paginate(page=page,per_page=10,error_out=False )
+    #get_api(id)
     return render_template("Transaktioner.html", account=account, transaktioner=transaktioner, List_of_transactions=Response)
 @app.route("/api/customer/account/<id>/", methods=["GET"])
 def get_api(id):
