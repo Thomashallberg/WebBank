@@ -12,7 +12,7 @@
 <h2>
 cc-number: {{ account.Id }} <br>Balance: {{account.Balance}}
 </h2>
-<table class="transaktioner">
+<table class="transaktioner" id="posts-table">
 <thead>
     <th>Id</th>
     <th>Date</th>
@@ -25,18 +25,10 @@ cc-number: {{ account.Id }} <br>Balance: {{account.Balance}}
         <th><td><a href="/customer/account/transfer/{{ account.Id }}" class='btn'>Transfer</a></th>
 </thead>
 <tbody>
-    {%  for t in transaktioner   %}
-    <tr>
-        <td>{{ t.Id }}</td> 
-        <td>{{ t.Date }}</td>  
-        <td>{{ t.Operation }}</td>           
-        <td>{{ t.Amount }}</td>
-        <td>{{ t.Type }}</td> 
-        <td>{{ t.NewBalance}}</td>           
-    </tr>
-    {%  endfor  %}
+
     </tbody>
 </table>
+
 
 
 <button onclick="fetchMore()">Working!</button>
@@ -44,7 +36,8 @@ cc-number: {{ account.Id }} <br>Balance: {{account.Balance}}
 <script>
     pageNo = 1;
     function fetchMore(){
-        fetch("/api/customer/account/278/?page=" + pageNo)
+        console.log('work!');
+        fetch("/api/customer/account/{{account.Id}}/?page=" + pageNo)
         .then((response) => response.json())
         .then((json) => {
             pageNo = pageNo + 1;
@@ -55,6 +48,7 @@ cc-number: {{ account.Id }} <br>Balance: {{account.Balance}}
 
 
 function tableElements(element){
+    console.log(element.ID)
     document.querySelector('#posts-table tbody').innerHTML +=
     `<tr>
         <td>${element.ID}</td>
