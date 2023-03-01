@@ -8,7 +8,7 @@ from utils import create_deposit, create_withdrawal, create_transfer
 import os
 from flask_security import roles_accepted, auth_required, logout_user
 from datetime import datetime
-from flask_security import Security, SQLAlchemyUserDatastore, auth_required
+from flask_security import Security, SQLAlchemyUserDatastore, auth_required, hash_password
 from forms import NewCustomerForm, DepositForm, WithdrawForm, TransferForm, ResetRequestForm
 
 
@@ -146,7 +146,7 @@ def customerspage():
         else:
             listOfCustomers = listOfCustomers.order_by(Customer.City.desc())
 
-    paginationObject = listOfCustomers.paginate(page=page,per_page=10,error_out=False )
+    paginationObject = listOfCustomers.paginate(page=page,per_page=6,error_out=False )
     return render_template("customers.html", 
                     listOfCustomers=paginationObject.items, 
                     activePage="customersPage",

@@ -1,4 +1,4 @@
-{% extends "basetemplate.html" %}
+{% extends "EmptyBaseTemplate.html" %}
 
 {% block title %}
 New customer
@@ -6,36 +6,37 @@ New customer
 
 {% block content %}
 
-
+<div class="container">
 
    <form method="post">
 
-    {{ formen.csrf_token }}
+    {{ formen.csrf_token }}<br><br><br><br><br><br><br><br>
 
-    {{ formen.GivenName(placeholder="Enter Given name") }}
+    {{ formen.GivenName(placeholder="Enter Given name") }}<br><br>
 
-    {{ formen.Surname(placeholder="Enter Surname") }}
+    {{ formen.Surname(placeholder="Enter Surname") }}<br><br>
 
-    {{ formen.Streetaddress(placeholder="Enter Streetaddress") }}
+    {{ formen.Streetaddress(placeholder="Enter Streetaddress") }}<br><br>
 
-    {{ formen.City(placeholder="Enter city") }}
+    {{ formen.City(placeholder="Enter city") }}<br><br>
 
-    {{ formen.Zipcode(placeholder="Enter Zipcode") }}
+    {{ formen.Zipcode(placeholder="Enter Zipcode") }}<br><br>
 
-    {{ formen.Country(placeholder="Enter Country") }}
+    {{ formen.Country(placeholder="Enter Country") }}<br><br>
 
-    {{ formen.CountryCode(placeholder="Enter Countrycode") }}
+    {{ formen.CountryCode(placeholder="Enter Countrycode") }}<br><br>
 
-    {{ formen.Birthday(placeholder="Enter birthday") }}
+    {{ formen.Birthday(placeholder="Enter birthday") }}<br><br>
 
-    {{ formen.NationalId(placeholder="Enter National ID") }}
+    {{ formen.NationalId(placeholder="Enter National ID") }}<br><br>
 
-    {{ formen.TelephoneCountryCode(placeholder="Enter Country code") }}
+    {{ formen.TelephoneCountryCode(placeholder="Enter Country code") }}<br><br>
 
-    {{ formen.Telephone(placeholder="Enter phonenumber") }}
+    {{ formen.Telephone(placeholder="Enter phonenumber") }}<br><br>
     
-    {{ formen.EmailAddress(placeholder="Enter E-mail address") }}
+    {{ formen.EmailAddress(placeholder="Enter E-mail address") }}<br><br>
 
-    <input type="submit" value="Spara">
+    <input type="submit" class="btn" value="Spara">
    </form>
+</div>
 {% endblock %}    

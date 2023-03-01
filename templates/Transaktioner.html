@@ -1,14 +1,10 @@
-{% extends "basetemplate.html" %}
+{% extends "EmptyBaseTemplate.html" %}
 
-{% block title %}
-Kontonamn
-{% endblock %}
-{% block head %}
-
-{% endblock%}
 
 
 {% block content %}
+
+<div class="container">
 <h1>
     Account name: 
 {{ account.AccountType }}
@@ -16,7 +12,7 @@ Kontonamn
 <h2>
 cc-number: {{ account.Id }} <br>Balance: {{account.Balance}}
 </h2>
-<table class="table" id="posts-table">
+<table class="transaktioner">
 <thead>
     <th>Id</th>
     <th>Date</th>

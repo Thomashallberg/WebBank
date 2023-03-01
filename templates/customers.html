@@ -1,16 +1,20 @@
-{% extends "basetemplate.html" %}
+{% extends "EmptyBaseTemplate.html" %}
 
 {% block title %}
 Alla customers
 {% endblock %}
 
 
+
 {% block content %}
+<div class="container">
+    <!-- Content here -->
 
-Visar sidan {{ page }} av totalt {{ pages }}
 
-<form method="get">
-    <input type="text" placeholder="search" value="{{ q }}" name="q">
+    
+    <form method="get">
+        <input type="text" class="searchform" placeholder="search" value="{{ q }}" name="q">
+       
     <input class="btn" type=submit value="Sök">
 </form>
 
@@ -53,7 +57,7 @@ Visar sidan {{ page }} av totalt {{ pages }}
             </td>        
             <td>
                 <a href="/customerimage/{{ p.Id }}">
-                    <img src="https://img.systementor.se/{{ p.Id }}/300/200" />
+                    <img src="https://img.systementor.se/{{ p.Id }}/80/60" />
                 </a>
             </td>    
         </tr>
@@ -81,7 +85,9 @@ Visar sidan {{ page }} av totalt {{ pages }}
         </tfoot>
 
 </table>
-
+<p>
+Visar sidan {{ page }} av totalt {{ pages }}
+</p>
+</div>
 
 {% endblock %}
-
