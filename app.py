@@ -1,14 +1,17 @@
 from flask import Flask, render_template, request, redirect, jsonify, Response
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
-from model import db, seedData, seed_user, Customer, Account, Transaction
-from forms import NewCustomerForm, DepositForm, WithdrawForm, TransferForm, ResetRequestForm
-from datetime import datetime
-from flask_security import roles_accepted, auth_required, logout_user
-import os
-from utils import create_deposit, create_withdrawal, create_transfer
+from model import Customer, Account, Transaction
+from model import db, user_datastore, seed_user, seedData, seed_user
 from flask_mail import Mail, Message
-from flask_security.utils import hash_password
+from utils import create_deposit, create_withdrawal, create_transfer
+import os
+from flask_security import roles_accepted, auth_required, logout_user
+from datetime import datetime
+from flask_security import Security, SQLAlchemyUserDatastore, auth_required
+from forms import NewCustomerForm, DepositForm, WithdrawForm, TransferForm, ResetRequestForm
+
+
 
 # active page
 # Sorting
@@ -17,7 +20,7 @@ from flask_security.utils import hash_password
 #pip install flask_security
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://tompa:Aarin1991@bank.mysql.database.azure.com/bank?charset=utf8'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://tompa:Aarin1991@bank.mysql.database.azure.com/bank'
 #'mysql+mysqlconnector://root:my-secret-pw@localhost/Bank'
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", 'pf9Wkove4IKEAXvy-cQkeDPhv9Cb3Ag-wyJILbq_dFw')
 app.config['SECURITY_PASSWORD_SALT'] = os.environ.get("SECURITY_PASSWORD_SALT", '146585145368132386173505678016728509634')
@@ -35,7 +38,7 @@ mail = Mail(app)
 db.app = app
 db.init_app(app)
 migrate = Migrate(app,db)
-
+app.security = Security(app, user_datastore)
 
 
 
@@ -292,13 +295,13 @@ def editcustomer(id):
 
 if __name__  == "__main__":
     with app.app_context():
-        #upgrade()
+        upgrade()
 
         seedData(db)
-        print("Startar seed")
+       
         seed_user(app, db)
-        print("Seeding done")
-        app.run(host='0.0.0.0', debug=True)
+        
+        app.run()
 
         # while True:
         #     print("1. Create")
