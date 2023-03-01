@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<div class="container">
+<div class="knappar">
 <h1>
     Account name: 
 {{ account.AccountType }}
@@ -12,26 +12,26 @@
 <h2>
 cc-number: {{ account.Id }} <br>Balance: {{account.Balance}}
 </h2>
-<table class="transaktioner" id="posts-table">
-<thead>
+<a href="/customer/account/newdeposit/{{ account.Id }}" class='btn'>Deposit</a>
+<a href="/customer/account/newwithdrawal/{{ account.Id }}" class='btn'>Withdrawal</a>
+<a href="/customer/account/transfer/{{ account.Id }}" class='btn'>Transfer</a>
+<table class="tabletransaction" id="posts-table">
+<thead style="color: aqua;">
     <th>Id</th>
     <th>Date</th>
     <th>Operation</th>
     <th>Amount</th>
     <th>Type</th>
     <th>NewBalance</th>
-    <th><td><a href="/customer/account/newdeposit/{{ account.Id }}" class='btn'>Deposit</a></th>
-        <th><td><a href="/customer/account/newwithdrawal/{{ account.Id }}" class='btn'>Withdrawal</a></th>
-        <th><td><a href="/customer/account/transfer/{{ account.Id }}" class='btn'>Transfer</a></th>
 </thead>
-<tbody>
+<tbody style="color: white;">
 
     </tbody>
 </table>
+<button class="btn" onclick="fetchMore()">Load more</button>
 
 
 
-<button onclick="fetchMore()">Working!</button>
 
 <script>
     pageNo = 1;
@@ -63,6 +63,6 @@ document.addEventListener("DOMContentLoaded", function (){
     fetchMore();
 });
 </script>
-
+</div>
 
 {% endblock %}
