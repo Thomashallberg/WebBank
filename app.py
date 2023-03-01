@@ -291,13 +291,13 @@ def editcustomer(id):
 
 if __name__  == "__main__":
     with app.app_context():
-        #upgrade()
+        upgrade()
 
         seedData(db)
-        print("Startar seed")
+       
         seed_user(app, db)
-        print("Seeding done")
-        app.run(host='0.0.0.0')
+        
+        app.run()
 
         # while True:
         #     print("1. Create")

@@ -64,7 +64,7 @@ class Transaction(db.Model):
 
 def seedData(db):
     antal =  Customer.query.count()
-    print(antal)
+    # print(antal)
     while antal < 10:
         customer = Customer()
         
