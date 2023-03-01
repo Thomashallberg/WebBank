@@ -8,7 +8,7 @@ from utils import create_deposit, create_withdrawal, create_transfer
 import os
 from flask_security import roles_accepted, auth_required, logout_user
 from datetime import datetime
-from flask_security import Security, SQLAlchemyUserDatastore, auth_required
+from flask_security import Security, SQLAlchemyUserDatastore, auth_required, hash_password
 from forms import NewCustomerForm, DepositForm, WithdrawForm, TransferForm, ResetRequestForm
 
 

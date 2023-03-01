@@ -3,6 +3,7 @@
 
 {% block content %}
 {% include "security/_messages.html" %}
+<div class="container">
 <h1>{{ _fsdomain('Login') }}</h1>
 <p>Hejsan</p>
   <form action="{{ url_for_security('login') }}{{ prop_next() }}" method="POST" name="login_user_form">
@@ -46,5 +47,6 @@
       </div>
     {% endfor %}
   {% endif %}
+    </div>
 {% include "security/_menu.html" %}
 {% endblock %}

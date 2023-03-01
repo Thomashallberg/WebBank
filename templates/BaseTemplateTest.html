@@ -46,22 +46,15 @@
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
-
+      <span style="color: white;">{{ current_user.email}}</span>
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="/customers">Customers</a></li>
-          <li><a class="nav-link scrollto" href="/newcustomer">New customer</a></li>
-          <li><a class="nav-link scrollto" href="#portfolio">Portfolio</a></li>
-          <li><a class="nav-link scrollto" href="#team">Team</a></li>
-          <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li><a href="#">Drop Down 2</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li>
+          <li><a class="nav-link scrollto" href="/newcustomer">New customer</a></li>         
+          {% if current_user.is_authenticated %}
+          <li><a class="nav-link scrollto" href="/logout">Log out</a></li>
+          {% endif %}
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -84,7 +77,7 @@
               <div class="container">
                 <h2 class="animate__animated animate__fadeInDown">Wayne Gretzky</h2>
                 <p class="animate__animated animate__fadeInUp">You miss 100% of the shots you don't take</p>
-                <a href="security/login_user" class="btn-get-started scrollto animate__animated animate__fadeInUp">Login</a>
+                <a href="/login" class="btn-get-started scrollto animate__animated animate__fadeInUp">Login</a>
               </div>
             </div>
           </div>
@@ -94,7 +87,7 @@
               <div class="container">
                 <h2 class="animate__animated animate__fadeInDown">Sidney Crosby</h2>
                 <p class="animate__animated animate__fadeInUp">Dreams are so important. You need to have big goals and expect a lot of yourself but you have to enjoy the ride too.</p>
-                <a href="security/login_user" class="btn-get-started scrollto animate__animated animate__fadeInUp">Login</a>
+                <a href="/login" class="btn-get-started scrollto animate__animated animate__fadeInUp">Login</a>
               </div>
             </div>
           </div>
@@ -136,7 +129,7 @@
                   <a class="services-icon" href="#">
                     <i class="bi bi-briefcase"></i>
                   </a>
-                  <h4>Expert Coder</h4>
+                  <h4>Stock portfolio</h4>
                   <p>
                     will have to make sure the prototype looks finished by inserting text or photo.make sure the prototype looks finished by.
                   </p>
@@ -152,7 +145,7 @@
                   <a class="services-icon" href="#">
                     <i class="bi bi-card-checklist"></i>
                   </a>
-                  <h4>Creative Designer</h4>
+                  <h4>Loans</h4>
                   <p>
                     will have to make sure the prototype looks finished by inserting text or photo.make sure the prototype looks finished by.
                   </p>
@@ -169,7 +162,7 @@
                   <a class="services-icon" href="#">
                     <i class="bi bi-bar-chart"></i>
                   </a>
-                  <h4>Wordpress Developer</h4>
+                  <h4>Business</h4>
                   <p>
                     will have to make sure the prototype looks finished by inserting text or photo.make sure the prototype looks finished by.
                   </p>
@@ -186,7 +179,7 @@
                   <a class="services-icon" href="#">
                     <i class="bi bi-binoculars"></i>
                   </a>
-                  <h4>Social Marketer </h4>
+                  <h4>Opportunities</h4>
                   <p>
                     will have to make sure the prototype looks finished by inserting text or photo.make sure the prototype looks finished by.
                   </p>
@@ -204,7 +197,7 @@
                   <a class="services-icon" href="#">
                     <i class="bi bi-brightness-high"></i>
                   </a>
-                  <h4>Seo Expart</h4>
+                  <h4>Sustainability</h4>
                   <p>
                     will have to make sure the prototype looks finished by inserting text or photo.make sure the prototype looks finished by.
                   </p>
