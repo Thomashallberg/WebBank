@@ -1,12 +1,12 @@
-{% extends "basetemplate.html" %}
+{% extends "EmptyBaseTemplate.html" %}
 
 {% block title %}
 New customer
 {% endblock %}
 
 {% block content %}
-
-
+<br><br>
+<br><br>
 
    <form method="post">
 
@@ -14,10 +14,10 @@ New customer
     
     {{ form.email(placeholder="Enter E-mail address") }}
 
-    {{ form.password(placeholder="Enter password address") }}
+    {{ form.password(placeholder="Enter new password") }}
 
     
-    <input type="submit" value="Send new password">
+    <input type="submit" value="Send new password" class="btn">
 </form>
 {% if mail_is_sent == True %}
 
