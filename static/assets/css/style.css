@@ -155,6 +155,14 @@ width: 600px;
   
 
 }
+.h1-index{
+  text-align: center;
+  color: aqua;
+}
+.p-index{
+  text-align: center;
+  color: white;
+}
 .tabletransaction
   {
     width: 900px;
