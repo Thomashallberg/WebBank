@@ -17,18 +17,18 @@ Customer: {{ customer.GivenName }}
         <p class="customer-p">Streetaddress: {{ customer.Streetaddress }}</p>
         <p class="customer-p">Telefon: +{{ customer.TelephoneCountryCode }} -  {{ customer.Telephone }}</p>
         <span><img src="https://img.systementor.se/{{ customer.Id }}/60/40" /></span>
-        <h1>{{ customer.GivenName }} - {{ customer.Surname }}</h1>
+        <h2>{{ customer.GivenName }} - {{ customer.Surname }}</h2>
         
         
         
         
-        <h1>Balance:<br><br></h1>
+        
         {%  for a in customer.Accounts  %}
             <a href="/customer/account/{{ a.Id }}" class="btn">
             {{ a.AccountType }}
             </a>: {{ a.Balance}}<br><br>
             {%  endfor  %}
-            <h3> Total: {{ Saldo }}</h3>
+            <h3 style="color:white;"> Total: {{ Saldo }}</h3>
         
     </div>
 {% endblock %}
