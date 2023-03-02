@@ -1,57 +1,60 @@
-{% extends "basetemplate.html" %}
+{% extends "EmptyBaseTemplate.html" %}
 
 {% block content %}
     {% for field, errors in formen.errors.items() %}
     {{ formen[field].label }}: {{ ', '.join(errors) }}
     {% endfor %}
-
-<form class="form-control" method="post">
+    <br><br>
+    <br><br>
+    <div class="container">
+<form class="form-control" method="post" style="background-color: black; color: white;">
     <table class="table">
     {{ formen.csrf_token }}
-    <h3>Edit customer</h3>
+    <br><br>
+    <h3 style="color: aqua;">Edit customer</h3>
     <tbody>
         <tr>
-            <td>Firstname</td>
+            <td style="color: aqua;">Firstname</td>
             <td>{{ formen.GivenName(placeholder="John") }}</td>
         </tr>
         <tr>
-            <td>Lastname</td>
+            <td style="color: aqua;">Lastname</td>
             <td>{{ formen.Surname(placeholder="Smith") }} </td>
         </tr>
         <tr>
-            <td>Street Adress</td>
+            <td style="color: aqua;">Street Adress</td>
             <td>{{ formen.Streetaddress(placeholder="Happy road") }}</td>
         </tr>
         <tr>
-            <td>City</td>
+            <td style="color: aqua;">City</td>
             <td>{{ formen.City(placeholder="Mountain Village") }}</td>
         </tr>
         <tr>
-            <td>Zipcode</td>
+            <td style="color: aqua;">Zipcode</td>
             <td>{{ formen.Zipcode(placeholder="12345") }}</td>
         </tr>
         <tr>
-            <td>Country</td>
+            <td style="color: aqua;">Country</td>
             <td>{{ formen.Country(placeholder="USA") }}</td>
         </tr>
         <tr>
-            <td>Country code</td>
+            <td style="color: aqua;">Country code</td>
             <td>{{ formen.CountryCode(placeholder="US") }}</td>
         </tr>
         <tr>
-            <td>Birthday</td>
+            <td style="color: aqua;">Birthday</td>
             <td>{{ formen.Birthday(placeholder="Enter birthday") }}</td>
         </tr>
         <tr>
-            <td>National Id</td>
+            <td style="color: aqua;">National Id</td>
             <td>{{ formen.NationalId(placeholder="YYMMDD-0000") }}</td>
         </tr>
         <tr>
-            <td>Telephone Countrycode</td>
+            <td style="color: aqua;">Telephone Countrycode</td>
             <td>{{ formen.TelephoneCountryCode(placeholder="55") }}</td>
         </tr>
         <tr>
-            <td>Telephone</td>
+            <td style="color: aqua;">Telephone</td>
             <td>{{ formen.Telephone(placeholder="(000)222-2222") }}</td>
         </tr>
         <tr>
@@ -61,6 +64,7 @@
     </tbody>
     </table>
     <br>
-    <input class="input" type="submit" value="Save">
+    <input class="btn" type="submit" value="Save">
 </form>
+</div>
 {% endblock %}

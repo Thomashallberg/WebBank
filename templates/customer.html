@@ -12,10 +12,10 @@ Customer: {{ customer.GivenName }}
         <br><br>
         <br><br>
         <a href="{{ url_for('editcustomer',id=customer.Id ) }}" class="btn">Edit customer</a>
-        <p class="customer-p"> id: {{ customer.Id }}</p>
-        <p class="customer-p">City: {{ customer.City }}></p>
-        <p class="customer-p">Streetaddress: {{ customer.Streetaddress }}</p>
-        <p class="customer-p">Telefon: +{{ customer.TelephoneCountryCode }} -  {{ customer.Telephone }}</p>
+        <p class="customer-p" style="font-size: 20px; line-height: 35px;"> id: {{ customer.Id }}</p>
+        <p class="customer-p" style="font-size: 20px; line-height: 35px;">City: {{ customer.City }}></p>
+        <p class="customer-p" style="font-size: 20px; line-height: 35px;">Streetaddress: {{ customer.Streetaddress }}</p>
+        <p class="customer-p" style="font-size: 20px; line-height: 35px;">Telefon: +{{ customer.TelephoneCountryCode }} -  {{ customer.Telephone }}</p>
         <span><img src="https://img.systementor.se/{{ customer.Id }}/60/40" /></span>
         <h2>{{ customer.GivenName }} - {{ customer.Surname }}</h2>
         
