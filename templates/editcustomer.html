@@ -66,5 +66,8 @@
     <br>
     <input class="btn" type="submit" value="Save">
 </form>
+{% for field, errors in formen.errors.items() %}
+<h2>{{ formen[field].label }}: {{ ', '.join(errors) }}</h2>
+{% endfor %}
 </div>
 {% endblock %}

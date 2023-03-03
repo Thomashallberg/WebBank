@@ -7,7 +7,7 @@ New customer
 {% block content %}
 <br><br>
 <br><br>
-
+<div class="container">
    <form method="post">
 
     {{ form.csrf_token }}
@@ -24,4 +24,5 @@ New customer
 Your password has been reset!
 
 {% endif %}
+</div>
 {% endblock %}    

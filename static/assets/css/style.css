@@ -308,7 +308,10 @@ button[type=submit] {
   -moz-appearance: none;
   box-shadow: none !important;
 }
-
+input#submit{
+  background-color: aqua;
+  color: white;
+}
 div#preloader {
   position: fixed;
   left: 0;

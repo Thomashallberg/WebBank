@@ -65,7 +65,7 @@ class Transaction(db.Model):
 def seedData(db):
     antal =  Customer.query.count()
     # print(antal)
-    while antal < 10:
+    while antal < 50:
         customer = Customer()
         
         customer.GivenName, customer.Surname = barnum.create_name()

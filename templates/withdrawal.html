@@ -34,4 +34,7 @@ Customer: {{ customer.GivenName }}
 
   <input type="submit" value="Spara" class="btn"/>
 </form>
+{% for field, errors in formen.errors.items() %}
+<h2>{{ formen[field].label }}: {{ ', '.join(errors) }}</h2>
+{% endfor %}
 {% endblock %}
