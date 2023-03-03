@@ -1,42 +1,73 @@
 {% extends "EmptyBaseTemplate.html" %}
 
-{% block title %}
-New customer
-{% endblock %}
-
 {% block content %}
-
-<div class="container">
-
-   <form method="post">
-
-    {{ formen.csrf_token }}<br><br><br><br><br><br><br><br>
-
-    {{ formen.GivenName(placeholder="Enter Given name") }}<br><br>
-
-    {{ formen.Surname(placeholder="Enter Surname") }}<br><br>
-
-    {{ formen.Streetaddress(placeholder="Enter Streetaddress") }}<br><br>
-
-    {{ formen.City(placeholder="Enter city") }}<br><br>
-
-    {{ formen.Zipcode(placeholder="Enter Zipcode") }}<br><br>
-
-    {{ formen.Country(placeholder="Enter Country") }}<br><br>
-
-    {{ formen.CountryCode(placeholder="Enter Countrycode") }}<br><br>
-
-    {{ formen.Birthday(placeholder="Enter birthday") }}<br><br>
-
-    {{ formen.NationalId(placeholder="Enter National ID") }}<br><br>
-
-    {{ formen.TelephoneCountryCode(placeholder="Enter Country code") }}<br><br>
-
-    {{ formen.Telephone(placeholder="Enter phonenumber") }}<br><br>
-    
-    {{ formen.EmailAddress(placeholder="Enter E-mail address") }}<br><br>
-
-    <input type="submit" class="btn" value="Spara">
-   </form>
+    {% for field, errors in formen.errors.items() %}
+    {{ formen[field].label }}: {{ ', '.join(errors) }}
+    {% endfor %}
+    <br><br>
+    <br><br>
+    <div class="container">
+<form class="form-control" method="post" style="background-color: black; color: white;">
+    <table class="table">
+    {{ formen.csrf_token }}
+    <br><br>
+    <h3 style="color: aqua;">New customer</h3>
+    <tbody>
+        <tr>
+            <td style="color: aqua;">Firstname</td>
+            <td>{{ formen.GivenName(placeholder="John") }}</td>
+        </tr>
+        <tr>
+            <td style="color: aqua;">Lastname</td>
+            <td>{{ formen.Surname(placeholder="Smith") }} </td>
+        </tr>
+        <tr>
+            <td style="color: aqua;">Street Adress</td>
+            <td>{{ formen.Streetaddress(placeholder="Happy road") }}</td>
+        </tr>
+        <tr>
+            <td style="color: aqua;">City</td>
+            <td>{{ formen.City(placeholder="Mountain Village") }}</td>
+        </tr>
+        <tr>
+            <td style="color: aqua;">Zipcode</td>
+            <td>{{ formen.Zipcode(placeholder="12345") }}</td>
+        </tr>
+        <tr>
+            <td style="color: aqua;">Country</td>
+            <td>{{ formen.Country(placeholder="USA") }}</td>
+        </tr>
+        <tr>
+            <td style="color: aqua;">Country code</td>
+            <td>{{ formen.CountryCode(placeholder="US") }}</td>
+        </tr>
+        <tr>
+            <td style="color: aqua;">Birthday</td>
+            <td>{{ formen.Birthday(placeholder="Enter birthday") }}</td>
+        </tr>
+        <tr>
+            <td style="color: aqua;">National Id</td>
+            <td>{{ formen.NationalId(placeholder="YYMMDD-0000") }}</td>
+        </tr>
+        <tr>
+            <td style="color: aqua;">Telephone Countrycode</td>
+            <td>{{ formen.TelephoneCountryCode(placeholder="55") }}</td>
+        </tr>
+        <tr>
+            <td style="color: aqua;">Telephone</td>
+            <td>{{ formen.Telephone(placeholder="(000)222-2222") }}</td>
+        </tr>
+        <tr>
+            <td style="color: aqua;">Email</td>
+            <td>{{ formen.EmailAddress(placeholder="hello@mail.dk") }}</td>
+        </tr>
+    </tbody>
+    </table>
+    <br>
+    <input class="btn" type="submit" value="Save">
+</form>
+{% for field, errors in formen.errors.items() %}
+<h2>{{ formen[field].label }}: {{ ', '.join(errors) }}</h2>
+{% endfor %}
 </div>
-{% endblock %}    
+{% endblock %}

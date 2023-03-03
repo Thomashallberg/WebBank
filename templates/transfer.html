@@ -7,11 +7,14 @@ Customer: {{ customer.GivenName }}
 {% endblock %}
 
 {% block content %}
+<div class="container">
 
-<h1>{{ customer.GivenName }}</h1>
-<h1>{{ customer.Surname }}</h1>
+  <br><br>
+  <br><br>
+  <div class="container">
+  <h2>{{ customer.GivenName }} {{ customer.Surname }}</h2>
 
-id: {{ customer.Id }} Balance:<br /><br />
+<p>id: {{ customer.Id }} Balance:</p><br /><br />
 
 <h2>Transfer</h2>
 
@@ -33,6 +36,10 @@ id: {{ customer.Id }} Balance:<br /><br />
 {% endif %}
 
 
-  <input type="submit" value="Spara" />
+  <input type="submit" value="Spara" class="btn"/>
 </form>
+{% for field, errors in formen.errors.items() %}
+<h2>{{ formen[field].label }}: {{ ', '.join(errors) }}</h2>
+{% endfor %}
+</div>
 {% endblock %}

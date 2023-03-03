@@ -84,7 +84,7 @@ def customerimagepage(id):
 
 @app.route("/customer/<id>")
 @auth_required()
-@roles_accepted("Admin","Staff")
+@roles_accepted("Admin","Cashier")
 def customerpage(id):
     customer = Customer.query.filter_by(Id = id).first()
     Saldo = 0
@@ -119,7 +119,7 @@ def get_api(id):
 
 @app.route("/customers")
 @auth_required()
-@roles_accepted("Admin","Staff")
+@roles_accepted("Admin","Cashier")
 def customerspage():
     sortColumn = request.args.get('sortColumn', 'namn')
     sortOrder = request.args.get('sortOrder', 'asc')
@@ -160,6 +160,8 @@ def customerspage():
                     q = searchWord)
     
 @app.route("/newcustomer", methods=['GET', 'POST'])
+@auth_required()
+@roles_accepted("Admin","Cashier")
 def newcustomer():
     now = datetime.now()
     form = NewCustomerForm()

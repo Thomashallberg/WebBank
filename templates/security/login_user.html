@@ -2,10 +2,11 @@
 {% from "security/_macros.html" import render_field_with_errors, render_field, render_field_errors, render_form_errors, prop_next %}
 
 {% block content %}
-{% include "security/_messages.html" %}
 <div class="container">
+{% include "security/_messages.html" %}
+  <br><br>
+  <br><br>
 <h1>{{ _fsdomain('Login') }}</h1>
-<p>Hejsan</p>
   <form action="{{ url_for_security('login') }}{{ prop_next() }}" method="POST" name="login_user_form">
     {{ login_user_form.hidden_tag() }}
     {{ render_form_errors(login_user_form) }}
@@ -23,7 +24,7 @@
     {{ render_field_with_errors(login_user_form.remember) }}
     {{ render_field_errors(login_user_form.csrf_token) }}
     {{ render_field(login_user_form.submit) }}
-    <a href="{{ url_for('reset_request')}}">Forgot password?</a>
+    <a style="color: aqua;"href ="{{ url_for('reset_request')}}">Forgot password?</a>
   </form>
   {% if security.webauthn %}
     <hr class="fs-gap">
@@ -42,11 +43,12 @@
       <div class="fs-gap">
         <form method="POST" id={{ provider }}-form name={{ provider }}_form>
           <input id={{ provider }} name={{ provider }} type="submit" value="{{ _fsdomain('Sign in with ')~provider }}"
-            formaction="{{ url_for_security('oauthstart', name=provider) }}{{ prop_next() }}">
+           formaction="{{ url_for_security('oauthstart', name=provider) }}{{ prop_next() }}">
         </form>
       </div>
     {% endfor %}
   {% endif %}
     </div>
+  </div>
 {% include "security/_menu.html" %}
 {% endblock %}

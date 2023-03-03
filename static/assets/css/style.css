@@ -155,6 +155,30 @@ width: 600px;
   
 
 }
+.h1-index{
+  text-align: center;
+  color: aqua;
+}
+.p-index{
+  text-align: center;
+  color: white;
+}
+.customer-p{
+  font-size: 8px;
+  line-height: 12px;
+}
+.customer-snygg{
+  margin-top: 50px;
+  text-align: center;
+  margin: auto;
+  white-space: nowrap;
+  font-size: 14px;
+  line-height: 22px;
+}
+p.customer-snygg p{
+  margin: 0;
+  color: blue;
+}
 .tabletransaction
   {
     width: 900px;
@@ -284,7 +308,10 @@ button[type=submit] {
   -moz-appearance: none;
   box-shadow: none !important;
 }
-
+input#submit{
+  background-color: aqua;
+  color: white;
+}
 div#preloader {
   position: fixed;
   left: 0;

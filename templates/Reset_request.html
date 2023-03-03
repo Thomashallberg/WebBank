@@ -1,27 +1,28 @@
-{% extends "basetemplate.html" %}
+{% extends "EmptyBaseTemplate.html" %}
 
 {% block title %}
 New customer
 {% endblock %}
 
 {% block content %}
-
-
-
+<br><br>
+<br><br>
+<div class="container">
    <form method="post">
 
     {{ form.csrf_token }}
     
     {{ form.email(placeholder="Enter E-mail address") }}
 
-    {{ form.password(placeholder="Enter password address") }}
+    {{ form.password(placeholder="Enter new password") }}
 
     
-    <input type="submit" value="Send new password">
+    <input type="submit" value="Send new password" class="btn">
 </form>
 {% if mail_is_sent == True %}
 
 Your password has been reset!
 
 {% endif %}
+</div>
 {% endblock %}    
