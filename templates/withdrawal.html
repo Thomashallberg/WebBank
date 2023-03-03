@@ -7,13 +7,12 @@ Customer: {{ customer.GivenName }}
 {% endblock %}
 
 {% block content %}
-<div class="container">
+
 
   <br><br>
   <br><br>
   <div class="container">
   <h2>{{ customer.GivenName }} {{ customer.Surname }}</h2>
-
 <p>id: {{ customer.Id }} <br /><br /></p>
 
 <h2>Withdrawal</h2>
@@ -23,19 +22,11 @@ Customer: {{ customer.GivenName }}
 {{ form.csrf_token }}
 
 {{ form.Amount(placeholder="Enter Amount") }}
-<br><br>
-{% if form.Amount.errors %}
-<ul>
-  {% for error in form.Amount.errors %}
-    <li>{{ error }}</li>
-  {% endfor %}
-</ul>
-{% endif %}
 
 
-  <input type="submit" value="Spara" class="btn"/>
+
+<input type="submit" value="Spara" class="btn"/>
+
 </form>
-{% for field, errors in form.errors.items() %}
-<h2>{{ form[field].label }}: {{ ', '.join(errors) }}</h2>
-{% endfor %}
+</div>
 {% endblock %}
