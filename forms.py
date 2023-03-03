@@ -25,11 +25,11 @@ class DepositForm(FlaskForm):
     Amount = IntegerField('Amount', validators=[validators.DataRequired()])
     
 class WithdrawForm(FlaskForm):
-    Amount = IntegerField('Amount', validators=[validators.DataRequired(),validators.NumberRange(min=1,max=20000)])
+    Amount = IntegerField('Amount', validators=[validators.DataRequired()])
     
 class TransferForm(FlaskForm):
     Receiver = IntegerField('Account-id', validators=[validators.DataRequired()])
-    Amount = IntegerField('Amount', validators=[validators.DataRequired(),validators.NumberRange(min=1,max=5000)])
+    Amount = IntegerField('Amount', validators=[validators.DataRequired()])
     
 class ResetRequestForm(FlaskForm):
     email = StringField(label="E-mail", validators=[validators.DataRequired(), validators.Length(max=50)])
